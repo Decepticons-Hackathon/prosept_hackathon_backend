@@ -1,0 +1,28 @@
+name: App code style workflow
+
+on: [push]
+
+jobs:
+  pep8-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Isort
+      run: isort .
+
+    - name: Test with flake8
+      run: flake8
