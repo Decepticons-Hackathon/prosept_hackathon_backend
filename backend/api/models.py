@@ -3,12 +3,14 @@ from django.db import models
 
 class Dealer(models.Model):
     name = models.CharField(
-        max_length=64,
+        max_length=64
     )
 
 
 class Product(models.Model):
-    article = models.CharField()
+    article = models.CharField(
+        max_length=64
+    )
     ean_13 = models.CharField(
         max_length=64
     )
