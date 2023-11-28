@@ -2,12 +2,17 @@ from django.db import models
 
 
 class Dealer(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(
         max_length=64
     )
 
+    def __str__(self):
+       return f'{self.name}'
+
 
 class Product(models.Model):
+    product_id = models.IntegerField()
     article = models.CharField(
         max_length=64
     )
@@ -15,20 +20,23 @@ class Product(models.Model):
         max_length=64
     )
     name = models.CharField(
-        max_length=64
+        max_length=256
     )
-    cost = models.PositiveIntegerField()
-    min_rec_price = models.PositiveIntegerField()
-    rec_price = models.PositiveIntegerField()
-    category_id = models.PositiveIntegerField()
+    cost = models.FloatField()
+    min_rec_price = models.FloatField(
+        null=True,
+        blank=True
+    )
+    rec_price = models.FloatField()
+    category_id = models.FloatField()
     ozon_name = models.CharField(
-        max_length=64,
+        max_length=256,
     )
     name_1c = models.CharField(
-        max_length=64,
+        max_length=256,
     )
     wb_name = models.CharField(
-        max_length=64
+        max_length=256
     )
     ozon_article = models.CharField(
         max_length=64
@@ -42,10 +50,10 @@ class Product(models.Model):
 
 
 class DealerPrice(models.Model):
-    product_key = models.PositiveIntegerField(
-        primary_key=True
+    product_key = models.CharField(
+        max_length=256
     )
-    price = models.PositiveIntegerField()
+    price = models.FloatField()
     product_url = models.CharField(
         max_length=256
     )
@@ -60,9 +68,8 @@ class DealerPrice(models.Model):
 
 
 class DealerProduct(models.Model):
-    key = models.ForeignKey(
-        DealerPrice,
-        on_delete=models.CASCADE
+    key = models.ManyToManyField(
+        DealerPrice
     )
     product_id = models.ForeignKey(
         Product,
