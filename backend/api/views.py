@@ -11,7 +11,7 @@ class ProductList(APIView):
         """
         Выводит список неразмеченных товаров
         """
-        #TODO: сделать по проекту фронтов
+        # TODO: сделать по проекту фронтов
         data = Product.objects.all()
         serializer = ProductListSerializer(data, many=True)
         response = {
@@ -34,7 +34,7 @@ class ProductDetail(APIView):
         """
         Выводит детализацию товара либо совпадение для разметки
         """
-        #TODO: добавить обработку смапленных
+        # TODO: добавить обработку смапленных
         try:
             data = Product.objects.get(product_id=pk)
         except Product.DoesNotExist:
