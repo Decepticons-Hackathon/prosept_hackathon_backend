@@ -99,6 +99,7 @@ python3.11 -m virtualenv -p python3.11 env
 . ./env/bin/activate
 pip install -r путь_до_репозитория/server/requirements.txt
 python путь_до_репозитория/server/manage.py migrate
+python путь_до_репозитория/server/manage.py loaddata test_data.json
 python путь_до_репозитория/server/manage.py runserver 8080
 ```
 
