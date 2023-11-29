@@ -7,6 +7,7 @@ class DealerSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     name = serializers.CharField(max_length=64)
 
+
 class ProductListSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()
     article = serializers.CharField(max_length=64)
