@@ -1,9 +1,13 @@
 from rest_framework import status
 from rest_framework.views import APIView
 
-from api.models import Dealer, Product
+from api.models import Dealer, Product, DealerProduct
 from api.utils import JsonResponse
-from api.serializers import DealerSerializer, ProductListSerializer
+from api.serializers import (
+    DealerSerializer,
+    ProductSerializer,
+    DealerProductSerializer
+)
 
 
 class ProductList(APIView):
@@ -11,9 +15,8 @@ class ProductList(APIView):
         """
         Выводит список неразмеченных товаров
         """
-        # TODO: сделать по проекту фронтов
         data = Product.objects.all()
-        serializer = ProductListSerializer(data, many=True)
+        serializer = ProductSerializer(data, many=True)
         response = {
             'products': serializer.data,
             'products_count': len(data),
@@ -43,7 +46,7 @@ class ProductDetail(APIView):
                 code=status.HTTP_404_NOT_FOUND,
                 message='Объект не найден'
             )
-        serializer = ProductListSerializer(data)
+        serializer = ProductSerializer(data)
         response = {
             'product_detail': serializer.data
         }
@@ -75,7 +78,25 @@ class DealerDetail(APIView):
         """
         Выводит список товаров диллера
         """
-        return JsonResponse({})
+        try:
+            dealer = Dealer.objects.get(id=pk)
+        except Dealer.DoesNotExist:
+            return JsonResponse(
+                {},
+                code=status.HTTP_404_NOT_FOUND,
+                message='Объект не найден'
+            )
+        dealer_products = DealerProduct.objects.filter(dealer_id=dealer)
+        count = len(dealer_products)
+        dealer_products_list = []
+        for obj in dealer_products:
+            dealer_products_list.append(DealerProductSerializer(obj).data)
+        response = {
+            'dealer': DealerSerializer(dealer).data,
+            'dealer_products': dealer_products_list,
+            'dealer_products_count': count,
+        }
+        return JsonResponse(response)
 
 
 class ProductsStat(APIView):

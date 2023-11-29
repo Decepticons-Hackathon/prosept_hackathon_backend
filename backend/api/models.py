@@ -74,3 +74,56 @@ class DealerProduct(models.Model):
         Dealer,
         on_delete=models.CASCADE
     )
+
+# Проработка моделей для маппинга
+
+
+class DealerProductVariants(models.Model):
+    dealer_product_id = models.ForeignKey(
+        DealerProduct,
+        on_delete=models.CASCADE
+    )
+    product_id = models.ManyToManyField(
+        Product
+    )
+    dealer_id = models.ForeignKey(
+        Dealer,
+        on_delete=models.CASCADE
+    )
+
+
+class DealerProductMapped(models.Model):
+    dealer_product_id = models.ForeignKey(
+        DealerProduct,
+        on_delete=models.CASCADE
+    )
+    product_id = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE
+    )
+    dealer_id = models.ForeignKey(
+        Dealer,
+        on_delete=models.CASCADE
+    )
+
+
+CORRECT_CONDITIONS = (
+    ('true', 'Подтвердить',),
+    ('false', 'Отклонить',),
+    ('none', 'Отложить',),
+)
+
+
+class DealerProductStausChange(models.Model):
+    dealer_product_id = models.ForeignKey(
+        DealerProduct,
+        on_delete=models.CASCADE
+    )
+    status = models.CharField(
+        max_length=5,
+        choices=CORRECT_CONDITIONS,
+        null=True, blank=True,
+    )
+    status_datetime = models.DateTimeField(
+        auto_now_add=True
+    )
