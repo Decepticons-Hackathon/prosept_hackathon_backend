@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from api.models import Product, Dealer, DealerPrice, DealerProduct, DealerProductVariants, DealerProductMapped, DealerProductStausChange
+from api.models import (Dealer, DealerPrice, DealerProduct,
+                        DealerProductMapped, DealerProductStausChange,
+                        DealerProductVariants, Product)
 
 
 @admin.register(Product)
