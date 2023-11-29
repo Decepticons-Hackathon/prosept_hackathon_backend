@@ -1,10 +1,9 @@
-import time
 import logging
+import time
 
 from django.core.management.base import BaseCommand
 
 from api.utils import CsvParser
-
 
 logger = logging.getLogger(__name__)
 

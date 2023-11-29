@@ -2,7 +2,6 @@ from django.urls import include, path, re_path
 
 from api import views
 
-
 url_list = [
     path('product-matched-list/', views.ProductListMatches.as_view(), name='product_matched_list'),
     path('product-list/', views.ProductList.as_view(), name='product_list'),

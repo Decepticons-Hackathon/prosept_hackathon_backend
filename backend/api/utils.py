@@ -2,13 +2,12 @@ import csv
 import logging
 import os
 
-from django.http import JsonResponse as JsonResponseBase
 from django.conf import settings
+from django.http import JsonResponse as JsonResponseBase
 from rest_framework import status
 
 from api import __version__ as version
-from api.models import Dealer, Product, DealerPrice, DealerProduct
-
+from api.models import Dealer, DealerPrice, DealerProduct, Product
 
 logger = logging.getLogger(__name__)
 
