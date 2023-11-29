@@ -1,13 +1,10 @@
 from rest_framework import status
 from rest_framework.views import APIView
 
-from api.models import Dealer, Product, DealerProduct
+from api.models import Dealer, DealerProduct, Product
+from api.serializers import (DealerProductSerializer, DealerSerializer,
+                             ProductSerializer)
 from api.utils import JsonResponse
-from api.serializers import (
-    DealerSerializer,
-    ProductSerializer,
-    DealerProductSerializer
-)
 
 
 class ProductList(APIView):
