@@ -12,13 +12,13 @@ from api.models import Dealer, Product, DealerPrice, DealerProduct
 
 logger = logging.getLogger(__name__)
 
+
 class JsonResponse(JsonResponseBase):
     """
     Метод ответа в формате JSON с версией приложения
     """
     def __init__(
-            self, data, code=status.HTTP_200_OK, message='', *args, **kwargs
-        ):
+            self, data, code=status.HTTP_200_OK, message='', *args, **kwargs):
         _ = {
             'code': code,
             'message': message,
@@ -34,7 +34,7 @@ def force_int(value, default=0):
     '''
     try:
         return int(value)
-    except:
+    except Exception:
         return default
 
 
@@ -44,7 +44,7 @@ def force_float(value, default=0.):
     '''
     try:
         return float(value)
-    except:
+    except Exception:
         return default
 
 
