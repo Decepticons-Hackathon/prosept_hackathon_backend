@@ -20,12 +20,12 @@ class DealerDetailTestClass(ApiTestsClass):
 
         dealer_product = data.get('dealer_products')[0].get('product')
 
-        self.assertEqual(dealer_product.get('product_id'), 339)
-        self.assertEqual(dealer_product.get('article'), '040-9')
-        self.assertEqual(dealer_product.get('ean_13'), '4680008145987.0')
+        self.assertEqual(dealer_product.get('product_id'), 12)
+        self.assertEqual(dealer_product.get('article'), '105-00')
+        self.assertEqual(dealer_product.get('ean_13'), '4680008143563.0')
         self.assertEqual(
             dealer_product.get('name'),
-            'Антисептик лессирующий BiO LASUR / тик / 9 л'
+            'Универсальное моющее и чистящее средствоUniversal Sprayготовый состав / 0,5 л'
         )
         self.assertIsInstance(dealer_product.get('dealer_prices'), list)
         self.assertIsInstance(dealer_product.get('dealer_prices')[0], dict)

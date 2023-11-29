@@ -30,22 +30,14 @@ class ProductSerializer(serializers.Serializer):
 class DealerPriceSerializer(serializers.Serializer):
     price = serializers.FloatField()
     date = serializers.DateField()
+    product_url = serializers.CharField(max_length=256)
+    product_name = serializers.CharField(max_length=64)
 
 
 class DealerProductSerializer(serializers.Serializer):
-    # dealer = serializers.SerializerMethodField()
     product = serializers.SerializerMethodField()
-
-    def _get_dealer_prices(self, obj):
-        dealer_prices = []
-        for price in DealerPriceSerializer(obj.key, many=True).data:
-            dealer_prices.append(DealerPriceSerializer(price).data)
-        return dealer_prices
-
-    # def get_dealer(self, obj):
-    #     return DealerSerializer(obj.dealer_id).data
 
     def get_product(self, obj):
         data = ProductSerializer(obj.product_id).data
-        data['dealer_prices'] = self._get_dealer_prices(obj)
+        data['dealer_prices'] = DealerPriceSerializer(obj.key, many=True).data
         return data

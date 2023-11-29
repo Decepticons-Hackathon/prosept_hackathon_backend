@@ -114,7 +114,7 @@ class CsvParser:
     def __save_dealer_product_model(self, line):
         try:
             dealer = Dealer.objects.get(id=force_int(line[2]))
-            product = Product.objects.get(id=force_int(line[3]))
+            product = Product.objects.get(product_id=force_int(line[3]))
             dict_data = {
                 'product_id': product,
                 'dealer_id': dealer
