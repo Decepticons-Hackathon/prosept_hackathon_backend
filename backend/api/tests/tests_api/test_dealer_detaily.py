@@ -9,13 +9,17 @@ class DealerDetailTestClass(ApiTestsClass):
 
     @tag('api')
     def test_dealer_list(self):
+
         data = self.get_api()
+
         self.assertIsInstance(data.get('dealer'), dict)
         self.assertIsInstance(data.get('dealer_products'), list)
         self.assertEqual(data.get('dealer_products_count'), 67)
         self.assertEqual(data.get('dealer').get('id'), 2)
         self.assertEqual(data.get('dealer').get('name'), 'Akson')
+
         dealer_product = data.get('dealer_products')[0].get('product')
+
         self.assertEqual(dealer_product.get('product_id'), 339)
         self.assertEqual(dealer_product.get('article'), '040-9')
         self.assertEqual(dealer_product.get('ean_13'), '4680008145987.0')
@@ -35,9 +39,12 @@ class DealerDetailTestClass(ApiTestsClass):
         )
 
     def get_api(self):
+
         response = self.call_api('get', self.url)
+
         self.assertIsInstance(response, dict)
         self.assertEqual(response.get('code'), status.HTTP_200_OK)
         self.assertIsInstance(response.get('data'), dict)
+
         data = response.get('data')
         return data

@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Dealer(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=64)
 
 
@@ -74,6 +74,7 @@ class DealerProduct(models.Model):
         Dealer,
         on_delete=models.CASCADE
     )
+
 
 # Проработка моделей для маппинга
 

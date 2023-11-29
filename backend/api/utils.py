@@ -28,9 +28,9 @@ class JsonResponse(JsonResponseBase):
 
 
 def force_int(value, default=0):
-    '''
+    """
     Безопасное приведение к int
-    '''
+    """
     try:
         return int(value)
     except Exception:
@@ -38,9 +38,9 @@ def force_int(value, default=0):
 
 
 def force_float(value, default=0.):
-    '''
+    """
     Безопасное приведение к float
-    '''
+    """
     try:
         return float(value)
     except Exception:

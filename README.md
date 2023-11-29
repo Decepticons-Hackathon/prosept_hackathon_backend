@@ -114,3 +114,12 @@ python путь_до_репозитория/server/manage.py runserver 8080
 ```
 
 Приложение доступно по адресу `http://127.0.0.1:8080/`.
+
+### Запуск в контейнерах Docker 
+```
+cd infra/
+```
+
+```
+docker-compose up -d --build
+```
