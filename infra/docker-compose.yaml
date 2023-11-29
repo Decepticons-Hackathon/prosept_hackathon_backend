@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    volumes:
+      - static_value:/backend_static/static/
+
+  nginx:
+    image: nginx:1.25.2-alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ../frontend/build:/usr/share/nginx/html/
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+
+volumes:
+  static_value:
+  media_value:
