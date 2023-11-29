@@ -5,6 +5,9 @@ class Dealer(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=64)
 
+    def __str__(self) -> str:
+        return f'{self.name}'
+
 
 class Product(models.Model):
     product_id = models.IntegerField()
@@ -43,6 +46,9 @@ class Product(models.Model):
         max_length=64
     )
 
+    def __str__(self) -> str:
+        return f'{self.name}'
+
 
 class DealerPrice(models.Model):
     product_key = models.CharField(
@@ -60,6 +66,9 @@ class DealerPrice(models.Model):
         Dealer,
         on_delete=models.CASCADE
     )
+
+    def __str__(self) -> str:
+        return f'{self.product_key}'
 
 
 class DealerProduct(models.Model):
