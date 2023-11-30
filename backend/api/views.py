@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from api.models import Dealer, DealerProduct, Product
-from api.serializers import (DealerProductSerializer, DealerSerializer,
-                             ProductSerializer)
+from api.serializers import (DealerDetailSerializer, DealerProductSerializer,
+                             DealerSerializer, ProductSerializer)
 from api.utils import JsonResponse
 
 
@@ -90,6 +90,7 @@ class DealerList(APIView):
 
 class DealerDetail(APIView):
 
+    @swagger_auto_schema(responses={200: DealerDetailSerializer})
     def get(self, request, pk):
         """
         Выводит список товаров диллера
