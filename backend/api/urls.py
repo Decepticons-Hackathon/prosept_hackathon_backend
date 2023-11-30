@@ -1,7 +1,6 @@
 from django.urls import include, path, re_path
 
 from api import views
-
 from api.management.schema import schema_view
 
 url_list = [
