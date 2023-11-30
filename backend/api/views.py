@@ -90,7 +90,6 @@ class DealerList(APIView):
 
 class DealerDetail(APIView):
 
-    @swagger_auto_schema(responses={200: DealerSerializer})
     def get(self, request, pk):
         """
         Выводит список товаров диллера
