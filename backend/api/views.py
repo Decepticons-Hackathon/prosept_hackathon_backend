@@ -5,10 +5,12 @@ from api.models import Dealer, DealerProduct, Product
 from api.serializers import (DealerProductSerializer, DealerSerializer,
                              ProductSerializer)
 from api.utils import JsonResponse
+from drf_yasg.utils import swagger_auto_schema
 
 
 class ProductList(APIView):
 
+    @swagger_auto_schema(responses={200: ProductSerializer})
     def get(self, request):
         """
         Выводит список неразмеченных товаров
@@ -26,6 +28,7 @@ class ProductList(APIView):
 
 class ProductListMatches(APIView):
 
+    @swagger_auto_schema(responses={200: ProductSerializer})
     def get(self, request):
         """
         Выводит список размеченных товаров
@@ -35,6 +38,7 @@ class ProductListMatches(APIView):
 
 class ProductDetail(APIView):
 
+    @swagger_auto_schema(responses={200: ProductSerializer})
     def get(self, request, pk):
         """
         Выводит детализацию товара либо совпадение для разметки
@@ -58,6 +62,7 @@ class ProductDetail(APIView):
 
         return JsonResponse(response)
 
+    @swagger_auto_schema(responses={200: ProductSerializer})
     def post(self, request):
         """
         Метод сопоставления товара образцу (действие разметки)
@@ -67,6 +72,7 @@ class ProductDetail(APIView):
 
 class DealerList(APIView):
 
+    @swagger_auto_schema(responses={200: DealerSerializer})
     def get(self, request):
         """
         Выводит список диллеров
@@ -84,6 +90,7 @@ class DealerList(APIView):
 
 class DealerDetail(APIView):
 
+    @swagger_auto_schema(responses={200: DealerSerializer})
     def get(self, request, pk):
         """
         Выводит список товаров диллера
