@@ -13,6 +13,7 @@ from api.utils import JsonResponse
 
 # TODO: Разобраться почему @swagger_auto_schema не работает
 
+
 class ProductList(APIView):
 
     @swagger_auto_schema(responses={200: ProductListResponseSerializer})
