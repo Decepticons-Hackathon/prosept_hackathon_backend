@@ -2,6 +2,14 @@ version: '3.8'
 
 services:
 
+  data-science:
+    build: 
+      context: ../data-science
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8888:8888"
+
   backend:
     build:
       context: ../backend
