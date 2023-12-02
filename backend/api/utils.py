@@ -8,16 +8,9 @@ from django.http import JsonResponse as JsonResponseBase
 from rest_framework import status
 
 from api import __version__ as version
-from api.models import (
-    Dealer,
-    DealerPrice,
-    DealerProduct,
-    DealerProductStausChange,
-    DealerProductStausHistory,
-    Product,
-    CORRECT_CONDITIONS,
-    STATUS_TYPE
-)
+from api.models import (CORRECT_CONDITIONS, STATUS_TYPE, Dealer, DealerPrice,
+                        DealerProduct, DealerProductStausChange,
+                        DealerProductStausHistory, Product)
 
 logger = logging.getLogger(__name__)
 
