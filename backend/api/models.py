@@ -10,7 +10,7 @@ class Dealer(models.Model):
 
 
 class Product(models.Model):
-    product_id = models.IntegerField()
+    product_id = models.PositiveIntegerField()
     article = models.CharField(
         max_length=64
     )

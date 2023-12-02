@@ -41,3 +41,12 @@ class DealerProductSerializer(serializers.Serializer):
         data = ProductSerializer(obj.product_id).data
         data['dealer_prices'] = DealerPriceSerializer(obj.key, many=True).data
         return data
+
+
+class DealerDetailSerializer(serializers.Serializer):
+    dealer = DealerSerializer()
+    dealer_products = DealerProductSerializer(many=True)
+    dealer_products_count = serializers.SerializerMethodField()
+
+    def get_dealer_products_count(self, obj):
+        return len(obj.dealer_products)
