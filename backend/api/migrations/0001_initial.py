@@ -5,90 +5,193 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Dealer',
+            name="Dealer",
             fields=[
-                ('id', models.PositiveIntegerField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=64)),
+                ("id", models.PositiveIntegerField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=64)),
             ],
         ),
         migrations.CreateModel(
-            name='DealerPrice',
+            name="DealerPrice",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_key', models.CharField(max_length=256)),
-                ('price', models.FloatField()),
-                ('product_url', models.CharField(max_length=256)),
-                ('product_name', models.CharField(max_length=64)),
-                ('date', models.DateField()),
-                ('dealer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.dealer')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("product_key", models.CharField(max_length=256)),
+                ("price", models.FloatField()),
+                ("product_url", models.CharField(max_length=256)),
+                ("product_name", models.CharField(max_length=64)),
+                ("date", models.DateField()),
+                (
+                    "dealer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.dealer"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='DealerProduct',
+            name="DealerProduct",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('dealer_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.dealer')),
-                ('key', models.ManyToManyField(to='api.dealerprice')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "dealer_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.dealer"
+                    ),
+                ),
+                ("key", models.ManyToManyField(to="api.dealerprice")),
             ],
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_id', models.IntegerField()),
-                ('article', models.CharField(max_length=64)),
-                ('ean_13', models.CharField(max_length=64)),
-                ('name', models.CharField(max_length=256)),
-                ('cost', models.FloatField()),
-                ('min_rec_price', models.FloatField(blank=True, null=True)),
-                ('rec_price', models.FloatField()),
-                ('category_id', models.FloatField()),
-                ('ozon_name', models.CharField(max_length=256)),
-                ('name_1c', models.CharField(max_length=256)),
-                ('wb_name', models.CharField(max_length=256)),
-                ('ozon_article', models.CharField(max_length=64)),
-                ('wb_article', models.CharField(max_length=64)),
-                ('ym_article', models.CharField(max_length=64)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("product_id", models.IntegerField()),
+                ("article", models.CharField(max_length=64)),
+                ("ean_13", models.CharField(max_length=64)),
+                ("name", models.CharField(max_length=256)),
+                ("cost", models.FloatField()),
+                ("min_rec_price", models.FloatField(blank=True, null=True)),
+                ("rec_price", models.FloatField()),
+                ("category_id", models.FloatField()),
+                ("ozon_name", models.CharField(max_length=256)),
+                ("name_1c", models.CharField(max_length=256)),
+                ("wb_name", models.CharField(max_length=256)),
+                ("ozon_article", models.CharField(max_length=64)),
+                ("wb_article", models.CharField(max_length=64)),
+                ("ym_article", models.CharField(max_length=64)),
             ],
         ),
         migrations.CreateModel(
-            name='DealerProductVariants',
+            name="DealerProductVariants",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('dealer_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.dealer')),
-                ('dealer_product_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.dealerproduct')),
-                ('product_id', models.ManyToManyField(to='api.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "dealer_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.dealer"
+                    ),
+                ),
+                (
+                    "dealer_product_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="api.dealerproduct",
+                    ),
+                ),
+                ("product_id", models.ManyToManyField(to="api.product")),
             ],
         ),
         migrations.CreateModel(
-            name='DealerProductStausChange',
+            name="DealerProductStausChange",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(blank=True, choices=[('true', 'Подтвердить'), ('false', 'Отклонить'), ('none', 'Отложить')], max_length=5, null=True)),
-                ('status_datetime', models.DateTimeField(auto_now_add=True)),
-                ('dealer_product_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.dealerproduct')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("true", "Подтвердить"),
+                            ("false", "Отклонить"),
+                            ("none", "Отложить"),
+                        ],
+                        max_length=5,
+                        null=True,
+                    ),
+                ),
+                ("status_datetime", models.DateTimeField(auto_now_add=True)),
+                (
+                    "dealer_product_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="api.dealerproduct",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='DealerProductMapped',
+            name="DealerProductMapped",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('dealer_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.dealer')),
-                ('dealer_product_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.dealerproduct')),
-                ('product_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "dealer_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.dealer"
+                    ),
+                ),
+                (
+                    "dealer_product_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="api.dealerproduct",
+                    ),
+                ),
+                (
+                    "product_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.product"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='dealerproduct',
-            name='product_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.product'),
+            model_name="dealerproduct",
+            name="product_id",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="api.product"
+            ),
         ),
     ]

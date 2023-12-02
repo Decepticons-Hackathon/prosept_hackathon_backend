@@ -4,13 +4,11 @@ from rest_framework import serializers
 
 
 class DealerSerializer(serializers.Serializer):
-
     id = serializers.IntegerField()
     name = serializers.CharField(max_length=64)
 
 
 class ProductSerializer(serializers.Serializer):
-
     product_id = serializers.IntegerField()
     article = serializers.CharField(max_length=64)
     ean_13 = serializers.CharField(max_length=64)
@@ -39,7 +37,7 @@ class DealerProductSerializer(serializers.Serializer):
 
     def get_product(self, obj):
         data = ProductSerializer(obj.product_id).data
-        data['dealer_prices'] = DealerPriceSerializer(obj.key, many=True).data
+        data["dealer_prices"] = DealerPriceSerializer(obj.key, many=True).data
         return data
 
 
