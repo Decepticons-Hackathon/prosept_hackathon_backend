@@ -2,64 +2,58 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.views import APIView
 
-from api.models import Dealer, DealerProduct, Product
-from api.serializers import (
-    DealerDetailSerializer,
-    DealerProductSerializer,
-    DealerSerializer,
-    ProductSerializer,
+from api.models import (
+    Dealer,
+    DealerPrice,
+    DealerProduct,
+    DealerProductStausChange,
+    DealerProductStausHistory,
+    Product,
+    CORRECT_CONDITIONS,
+)
+from api.serializers.response_serializers import (
+    DealerDetailResponseSerializer,
+    DealerListResponseSerializer,
+    DealerProductStatResponseSerializer,
+    ProductListResponseSerializer,
+    ProductListToMatchesResponseSerializer,
 )
 from api.utils import JsonResponse
 
 
+# TODO: Разобраться почему @swagger_auto_schema не работает
+
 class ProductList(APIView):
-    @swagger_auto_schema(responses={200: ProductSerializer})
+
+    @swagger_auto_schema(responses={200: ProductListResponseSerializer})
     def get(self, request):
         """
-        Выводит список неразмеченных товаров
+        Выводит список товаров
         """
-
         data = Product.objects.all()
-        serializer = ProductSerializer(data, many=True)
-        response = {
-            "products": serializer.data,
-            "products_count": len(data),
-        }
-
-        return JsonResponse(response)
+        serializer = ProductListResponseSerializer(data)
+        return JsonResponse(serializer.data)
 
 
-class ProductListMatches(APIView):
-    @swagger_auto_schema(responses={200: ProductSerializer})
+class ProductListToMatches(APIView):
+
+    @swagger_auto_schema(
+        responses={200: ProductListToMatchesResponseSerializer}
+    )
     def get(self, request):
         """
-        Выводит список размеченных товаров
+        Выводит список не размеченных товаров
         """
-        return JsonResponse({})
+        data = DealerProductStausChange.objects.filter(
+            status=CORRECT_CONDITIONS[2][0]
+        )
+        serializer = ProductListToMatchesResponseSerializer(data)
+        return JsonResponse(serializer.data)
 
 
 class ProductDetail(APIView):
-    @swagger_auto_schema(responses={200: ProductSerializer})
-    def get(self, request, pk):
-        """
-        Выводит детализацию товара либо совпадение для разметки
-        """
 
-        # TODO: добавить обработку смапленных
-        try:
-            data = Product.objects.get(product_id=pk)
-
-        except Product.DoesNotExist:
-            return JsonResponse(
-                {}, code=status.HTTP_404_NOT_FOUND, message="Объект не найден"
-            )
-
-        serializer = ProductSerializer(data)
-        response = {"product_detail": serializer.data}
-
-        return JsonResponse(response)
-
-    @swagger_auto_schema(responses={200: ProductSerializer})
+    # @swagger_auto_schema(responses={200: ProductSerializer})
     def post(self, request):
         """
         Метод сопоставления товара образцу (действие разметки)
@@ -68,63 +62,55 @@ class ProductDetail(APIView):
 
 
 class DealerList(APIView):
-    @swagger_auto_schema(responses={200: DealerSerializer})
+
+    @swagger_auto_schema(responses={200: DealerListResponseSerializer})
     def get(self, request):
         """
         Выводит список диллеров
         """
-
-        data = Dealer.objects.all().order_by("id")
-        serializer = DealerSerializer(data, many=True)
-        response = {
-            "dealers": serializer.data,
-            "dealers_count": len(data),
-        }
-
-        return JsonResponse(response)
+        data = Dealer.objects.all()
+        serializer = DealerListResponseSerializer(data)
+        return JsonResponse(serializer.data)
 
 
 class DealerDetail(APIView):
-    @swagger_auto_schema(responses={200: DealerDetailSerializer})
+
+    # добавить в сваггер 404
+    @swagger_auto_schema(responses={200: DealerDetailResponseSerializer})
     def get(self, request, pk):
         """
         Выводит список товаров диллера
         """
-
         try:
             dealer = Dealer.objects.get(id=pk)
-
         except Dealer.DoesNotExist:
             return JsonResponse(
-                {}, code=status.HTTP_404_NOT_FOUND, message="Объект не найден"
+                {},
+                code=status.HTTP_404_NOT_FOUND,
+                message='Объект не найден'
             )
-
         dealer_products = DealerProduct.objects.filter(dealer_id=dealer)
-        count = len(dealer_products)
-        dealer_products_list = []
-
-        for obj in dealer_products:
-            dealer_products_list.append(DealerProductSerializer(obj).data)
-        response = {
-            "dealer": DealerSerializer(dealer).data,
-            "dealer_products": dealer_products_list,
-            "dealer_products_count": count,
-        }
-
-        return JsonResponse(response)
+        serializers = DealerDetailResponseSerializer(dealer_products)
+        return JsonResponse(serializers.data)
 
 
 class ProductsStat(APIView):
+
+    # добавить в сваггер 404
+    @swagger_auto_schema(responses={200: DealerProductStatResponseSerializer})
     def get(self, request, pk):
         """
         Выводит статистику по размеченным товарам
         """
-        return JsonResponse({})
-
-
-class OperatorStat(APIView):
-    def get(self, request, pk):
-        """
-        Выводит статистику по оператору
-        """
-        return JsonResponse({})
+        try:
+            dealer_product = DealerPrice.objects.get(id=pk)
+        except DealerPrice.DoesNotExist:
+            return JsonResponse(code=404, message='Объект не найден')
+        try:
+            data = DealerProductStausHistory.objects.filter(
+                dealer_product_id=dealer_product
+            )
+        except DealerProductStausHistory.DoesNotExist:
+            return JsonResponse(code=404, message='Объект не найден')
+        serializer = DealerProductStatResponseSerializer(data)
+        return JsonResponse(serializer.data)
