@@ -77,7 +77,7 @@ class ProductListNotMatchesSerializer(serializers.Serializer):
     def get_procreator_variants(self, obj):
         items = DealerProductVariants.objects.filter(
             dealer_product_id=obj.dealer_product_id
-        )
+        ).order_by('degree_of_agreement')
         products_lst = []
         for item in items:
             products_lst.append(item.product_id)
