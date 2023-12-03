@@ -10,7 +10,10 @@ from rest_framework import status
 from api import __version__ as version
 from api.models import (CORRECT_CONDITIONS, STATUS_TYPE, Dealer, DealerPrice,
                         DealerProduct, DealerProductStausChange,
-                        DealerProductStausHistory, Product)
+                        DealerProductStausHistory, DealerProductVariants, Product)
+from api.serializers.ml_serializers import DealerProductMlSerializer, ProductMlSerializer
+from ml_models.decepticon_ml_model.recommendation_model import recommendation_model
+
 
 logger = logging.getLogger(__name__)
 
@@ -203,9 +206,85 @@ def set_status_change():
         )
 
 
-class Matches:
+class MlMatches:
     """
-    Класс для взаимодействия с DS
+    Класс для взаимодействия с ML моделями
     """
-    def get(self):
-        ...
+    def __get_diller_data_to_matches(self):
+        diller_products = DealerProductStausChange.objects.filter(
+            status=CORRECT_CONDITIONS[2][0]
+        )
+        data = DealerProductMlSerializer(diller_products, many=True).data
+        return [dict(item) for item in data]
+
+    def __get_products_data(self):
+        products = Product.objects.all().order_by('id')
+        data = ProductMlSerializer(products, many=True).data
+        return [dict(item) for item in data]
+
+    def __set_variants_to_db(self, items):
+        logger.info('Стираю старые данные вариантов.')
+        try:
+            DealerProductVariants.objects.all().delete()
+        except Exception as error:
+            logger.error(f'Ошибка удаления старых данных вариантов: {str(error)}')
+            return
+        logger.info('Начинаю запись вариантов в БД.')
+        for item in items:
+            if len(item.get('variants')) == 0:
+                continue
+            dict_for_db = {}
+            try:
+                dealer_product = DealerPrice.objects.get(id=item.get('dealer_product_id'))
+                dict_for_db['dealer_product_id'] = dealer_product
+                dict_for_db['dealer_id'] = dealer_product.dealer
+            except DealerPrice.DoesNotExist as error:
+                logger.warning(f'Ошибка получения объекта DealerPrice: {str(error)}')
+                continue
+            for id in item.get('variants'):
+                try:
+                    product = Product.objects.get(id=id)
+                    dict_for_db['product_id'] = product
+                    dict_for_db['degree_of_agreement'] = item.get('variants').index(id) + 1
+                except Product.DoesNotExist as error:
+                    logger.warning(f'Ошибка получения объекта Product: {str(error)}')
+                    continue
+                DealerProductVariants.objects.create(**dict_for_db)
+        logger.info('Завершена запись вариантов в БД.')
+        return
+
+    def get_ml_variants(self):
+        variants_list = []
+        try:
+            products_data = self.__get_products_data()
+            data_for_matching = self.__get_diller_data_to_matches()
+        except Exception as error:
+            logger.error(f'Ошибка получения объектов для обработки: {str(error)}')
+            return
+        cnt = 0  # счётчик только на время тестов
+        logger.info(f'Начинаю обработку {len(data_for_matching)} позиций.')
+        for item in data_for_matching:
+            list_for_model = [
+                {
+                    'product_name': item.get('product_name'),
+                    'dealer_id': item.get('dealer_id')
+                }
+            ]
+            try:
+                data = recommendation_model(list_for_model, products_data)
+                dict_for_base = {
+                    'dealer_product_id': item.get('dealer_product_id'),
+                    'variants': data
+                }
+                variants_list.append(dict_for_base)
+            except Exception as error:
+                logger.error(f'Ошибка получения вариантов для объекта {item}: {str(error)}')
+            cnt += 1
+            if cnt == 5:
+                break
+        logger.info('Получение вариантов завершено.')
+        try:
+            self.__set_variants_to_db(variants_list)
+        except Exception as error:
+            logger.error(f'Ошибка сохранения результатов в БД: {str(error)}')
+        return
