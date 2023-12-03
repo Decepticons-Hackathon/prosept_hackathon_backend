@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import DealerProductStausChange, DealerProductStausHistory
+from api.models import DealerProductStausChange, DealerProductStausHistory, DealerProductVariants
 
 
 class DealerSerializer(serializers.Serializer):
@@ -23,6 +23,11 @@ class ProductSerializer(serializers.Serializer):
     ozon_article = serializers.CharField(max_length=64)
     wb_article = serializers.CharField(max_length=64)
     ym_article = serializers.CharField(max_length=64)
+
+
+class ProductMiniSerializer(serializers.Serializer):
+    product_id = serializers.IntegerField()
+    name_1c = serializers.CharField(max_length=256)
 
 
 class DealerPriceSerializer(serializers.Serializer):
@@ -70,8 +75,13 @@ class ProductListNotMatchesSerializer(serializers.Serializer):
         return DealerPriceSerializer(obj.dealer_product_id).data
 
     def get_procreator_variants(self, obj):
-        # пока незаполнена таблица вариантов
-        return []
+        items = DealerProductVariants.objects.filter(
+            dealer_product_id=obj.dealer_product_id
+        )
+        products_lst = []
+        for item in items:
+            products_lst.append(item.product_id)
+        return ProductMiniSerializer(products_lst, many=True).data
 
 
 class DealerProductStatusSerializer(serializers.Serializer):
@@ -82,8 +92,3 @@ class DealerProductStatusSerializer(serializers.Serializer):
 class DealerProductHistorySerializer(serializers.Serializer):
     status_type = serializers.CharField(max_length=6)
     status_datetime = serializers.DateTimeField()
-    product_variant = serializers.SerializerMethodField()
-
-    def get_product_variant(self, obj):
-        # пока незаполнена таблица вариантов возвращаем []
-        return []
