@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "rest_framework",
     "api",
+    "ml_models",
 ]
 
 SWAGGER_SETTINGS = {

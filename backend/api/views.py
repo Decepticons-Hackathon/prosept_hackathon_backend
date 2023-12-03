@@ -9,7 +9,7 @@ from api.serializers.response_serializers import (
     DealerDetailResponseSerializer, DealerListResponseSerializer,
     DealerProductStatResponseSerializer, ProductListResponseSerializer,
     ProductListToMatchesResponseSerializer)
-from api.utils import JsonResponse
+from api.utils import JsonResponse, MlMatches
 
 # TODO: Разобраться почему @swagger_auto_schema не работает
 
@@ -105,3 +105,13 @@ class ProductsStat(APIView):
             return JsonResponse(code=404, message='Объект не найден')
         serializer = DealerProductStatResponseSerializer(data)
         return JsonResponse(serializer.data)
+
+
+class MlForceUpdate(APIView):
+    def get(self, request):
+        """
+        Принудительное обновление рекомендаций
+        """
+        # TODO: сделать через Celery либо threads
+        MlMatches().get_ml_variants()
+        return JsonResponse({}, message='Ok')

@@ -1,10 +1,12 @@
 from rest_framework import serializers
 
-from api.serializers.serializers import (DealerPriceSerializer,
-                                         DealerProductSerializer,
-                                         DealerSerializer,
-                                         ProductListNotMatchesSerializer,
-                                         ProductSerializer)
+from api.serializers.base_serializers import (
+    DealerPriceSerializer,
+    DealerProductSerializer,
+    DealerSerializer,
+    ProductListNotMatchesSerializer,
+    ProductSerializer
+)
 
 
 class ProductListResponseSerializer(serializers.Serializer):

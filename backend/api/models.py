@@ -87,11 +87,12 @@ class DealerProduct(models.Model):
 
 class DealerProductVariants(models.Model):
     dealer_product_id = models.ForeignKey(
-        DealerProduct,
+        DealerPrice,
         on_delete=models.CASCADE
     )
-    product_id = models.ManyToManyField(
-        Product
+    product_id = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE
     )
     dealer_id = models.ForeignKey(
         Dealer,
