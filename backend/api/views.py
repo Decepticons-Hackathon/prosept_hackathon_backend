@@ -2,14 +2,20 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.views import APIView
 
-from api.models import (CORRECT_CONDITIONS, Dealer, DealerPrice, DealerProduct,
-                        DealerProductStausChange, DealerProductStausHistory,
-                        Product)
+from api.models import (
+    CORRECT_CONDITIONS, Dealer, DealerPrice, DealerProduct,
+    DealerProductStausChange, DealerProductStausHistory,
+    Product
+)
 from api.serializers.response_serializers import (
-    DealerDetailResponseSerializer, DealerListResponseSerializer,
-    DealerProductStatResponseSerializer, ProductListResponseSerializer,
-    ProductListToMatchesResponseSerializer)
-from api.utils import JsonResponse
+    DealerDetailResponseSerializer,
+    DealerListResponseSerializer,
+    DealerProductListResponseSerializer,
+    DealerProductStatResponseSerializer,
+    ProductListResponseSerializer,
+    ProductListToMatchesResponseSerializer
+)
+from api.utils import JsonResponse, force_int
 
 # TODO: Разобраться почему @swagger_auto_schema не работает
 
@@ -35,10 +41,36 @@ class ProductListToMatches(APIView):
         """
         Выводит список не размеченных товаров
         """
-        data = DealerProductStausChange.objects.filter(
+        data = {}
+        params = request.GET
+        query = DealerProductStausChange.objects.filter(
             status=CORRECT_CONDITIONS[2][0]
         )
+        data['products_count'] = query.count()
+        data['offset'] = force_int(params.get('offset', 0))
+        data['limit'] = force_int(params.get('limit', data['products_count']))
+        data['data'] = query[data['offset']: data['offset'] + data['limit']]
         serializer = ProductListToMatchesResponseSerializer(data)
+        return JsonResponse(serializer.data)
+
+
+class DealerProductList(APIView):
+
+    @swagger_auto_schema(
+        responses={200: ProductListToMatchesResponseSerializer}
+    )
+    def get(self, request):
+        """
+        Выводит список товаров диллеров
+        """
+        data = {}
+        params = request.GET
+        query = DealerProductStausChange.objects.order_by('id')
+        data['products_count'] = query.count()
+        data['offset'] = force_int(params.get('offset', 0))
+        data['limit'] = force_int(params.get('limit', data['products_count']))
+        data['data'] = query[data['offset']: data['offset'] + data['limit']]
+        serializer = DealerProductListResponseSerializer(data)
         return JsonResponse(serializer.data)
 
 

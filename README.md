@@ -95,7 +95,7 @@ LOGGING = {
 
 ```shell
 cd /путь_указанный_в_переменной_ROOT_PATH
-python3.11 -m virtualenv -p python3.11 env
+python3.10 -m virtualenv -p python3.10 env
 . ./env/bin/activate
 pip install -r путь_до_репозитория/server/requirements.txt
 python путь_до_репозитория/server/manage.py migrate

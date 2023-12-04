@@ -84,6 +84,36 @@ class ProductListNotMatchesSerializer(serializers.Serializer):
         return ProductMiniSerializer(products_lst, many=True).data
 
 
+class DealerProductToAnySerializer(serializers.Serializer):
+    procreator_product = serializers.SerializerMethodField()
+    dealer_product_info = serializers.SerializerMethodField()
+
+    def get_procreator_product(self, obj):
+        return ProductSerializer(obj.product_id).data
+
+    def get_dealer_product_info(self, obj):
+        return DealerPriceSerializer(obj.dealer_product_id).data
+
+
+class ProductListAnyMatchesSerializer(serializers.Serializer):
+    dealer_product = serializers.SerializerMethodField()
+    procreator_variants = serializers.SerializerMethodField()
+
+    def get_dealer_product(self, obj):
+        if obj.product_id:
+            return DealerProductToAnySerializer(obj).data
+        return DealerPriceSerializer(obj.dealer_product_id).data
+
+    def get_procreator_variants(self, obj):
+        items = DealerProductVariants.objects.filter(
+            dealer_product_id=obj.dealer_product_id
+        ).order_by('degree_of_agreement')
+        products_lst = []
+        for item in items:
+            products_lst.append(item.product_id)
+        return ProductMiniSerializer(products_lst, many=True).data
+
+
 class DealerProductStatusSerializer(serializers.Serializer):
     status = serializers.CharField(max_length=5)
     status_datetime = serializers.DateTimeField()
