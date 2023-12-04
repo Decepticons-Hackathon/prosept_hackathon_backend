@@ -113,5 +113,5 @@ class MlForceUpdate(APIView):
         Принудительное обновление рекомендаций
         """
         # TODO: сделать через Celery либо threads
-        MlMatches().get_ml_variants()
+        # MlMatches().get_ml_variants()
         return JsonResponse({}, message='Ok')

@@ -261,7 +261,7 @@ class MlMatches:
         except Exception as error:
             logger.error(f'Ошибка получения объектов для обработки: {str(error)}')
             return
-        cnt = 0  # счётчик только на время тестов
+        cnt = 0
         logger.info(f'Начинаю обработку {len(data_for_matching)} позиций.')
         for item in data_for_matching:
             list_for_model = [
@@ -280,9 +280,7 @@ class MlMatches:
             except Exception as error:
                 logger.error(f'Ошибка получения вариантов для объекта {item}: {str(error)}')
             cnt += 1
-            if cnt == 5:
-                break
-        logger.info('Получение вариантов завершено.')
+        logger.info(f'Получение вариантов для {cnt} записей товаров завершено.')
         try:
             self.__set_variants_to_db(variants_list)
         except Exception as error:
