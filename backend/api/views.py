@@ -9,7 +9,7 @@ from api.serializers.response_serializers import (
     DealerDetailResponseSerializer, DealerListResponseSerializer,
     DealerProductStatResponseSerializer, ProductListResponseSerializer,
     ProductListToMatchesResponseSerializer)
-from api.utils import JsonResponse, MlMatches
+from api.utils import JsonResponse
 
 # TODO: Разобраться почему @swagger_auto_schema не работает
 
