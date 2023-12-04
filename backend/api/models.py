@@ -3,14 +3,14 @@ from django.db import models
 
 class Dealer(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, db_index=True)
 
     def __str__(self) -> str:
         return f'{self.name}'
 
 
 class Product(models.Model):
-    product_id = models.PositiveIntegerField()
+    product_id = models.PositiveIntegerField(db_index=True)
     article = models.CharField(
         max_length=64
     )
@@ -18,7 +18,8 @@ class Product(models.Model):
         max_length=64
     )
     name = models.CharField(
-        max_length=256
+        max_length=256,
+        db_index=True
     )
     cost = models.FloatField()
     min_rec_price = models.FloatField(
@@ -32,6 +33,7 @@ class Product(models.Model):
     )
     name_1c = models.CharField(
         max_length=256,
+        db_index=True
     )
     wb_name = models.CharField(
         max_length=256
@@ -52,14 +54,16 @@ class Product(models.Model):
 
 class DealerPrice(models.Model):
     product_key = models.CharField(
-        max_length=256
+        max_length=256,
+        db_index=True
     )
     price = models.FloatField()
     product_url = models.CharField(
         max_length=256
     )
     product_name = models.CharField(
-        max_length=64
+        max_length=64,
+        db_index=True
     )
     date = models.DateField()
     dealer = models.ForeignKey(
@@ -125,7 +129,8 @@ class DealerProductStausChange(models.Model):
     status = models.CharField(
         max_length=5,
         choices=CORRECT_CONDITIONS,
-        default=CORRECT_CONDITIONS[2][0]
+        default=CORRECT_CONDITIONS[2][0],
+        db_index=True
     )
     status_datetime = models.DateTimeField(
         auto_now_add=True
@@ -150,7 +155,8 @@ class DealerProductStausHistory(models.Model):
     status_type = models.CharField(
         max_length=6,
         choices=STATUS_TYPE,
-        default=STATUS_TYPE[2][0]
+        default=STATUS_TYPE[2][0],
+        db_index=True
     )
     product_variant = models.ForeignKey(
         DealerProductVariants,

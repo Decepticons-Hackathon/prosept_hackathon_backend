@@ -4,7 +4,7 @@
 
 ## Общие требования
 
-* Python >= 3.10
+* Python = 3.10
 * Django >= 4.2
 
 ## Для nix-подобных систем
@@ -20,18 +20,18 @@ mkdir data
 
 ### Подготовка среды выполнения
 
-Для запуска сервера разработки следует установить Python 3.11, пакетный менеджер PIP и менеджер виртуального окружения. Пример для Ubuntu: 
+Для запуска сервера разработки следует установить Python 3.10, пакетный менеджер PIP и менеджер виртуального окружения. Пример для Ubuntu: 
 
 ```shell
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
-sudo apt -y install python3.11 python3.11-distutils python3.11-dev
+sudo apt -y install python3.10 python3.10-distutils python3.10-dev
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-sudo python3.11 get-pip.py
+sudo python3.10 get-pip.py
 python3.11 -m pip install virtualenv
 ```
 
-Можно добавить файл настроек в `<папка репозитория>/server/backend/local_settings.py`:
+Можно добавить файл настроек в `<каталог репозитория>/server/backend/local_settings.py`:
 
 ```python
 _ROOT_PATH = '/home/username/prosept/data' # каталог где будет лежать файл базы и файлы таблиц csv
@@ -95,11 +95,11 @@ LOGGING = {
 
 ```shell
 cd /путь_указанный_в_переменной_ROOT_PATH
-python3.11 -m virtualenv -p python3.11 env
+python3.10 -m virtualenv -p python3.10 env
 . ./env/bin/activate
 pip install -r путь_до_репозитория/server/requirements.txt
 python путь_до_репозитория/server/manage.py migrate
-python путь_до_репозитория/server/manage.py loaddata test_data.json
+python путь_до_репозитория/server/manage.py loaddata preload_data.json
 python путь_до_репозитория/server/manage.py runserver 8080
 ```
 

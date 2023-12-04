@@ -4,6 +4,7 @@ from api.serializers.base_serializers import (
     DealerPriceSerializer,
     DealerProductSerializer,
     DealerSerializer,
+    ProductListAnyMatchesSerializer,
     ProductListNotMatchesSerializer,
     ProductSerializer
 )
@@ -22,13 +23,40 @@ class ProductListResponseSerializer(serializers.Serializer):
 
 class ProductListToMatchesResponseSerializer(serializers.Serializer):
     dealer_products = serializers.SerializerMethodField()
+    offset = serializers.SerializerMethodField()
+    limit = serializers.SerializerMethodField()
     dealer_products_count = serializers.SerializerMethodField()
 
     def get_dealer_products(self, obj):
-        return ProductListNotMatchesSerializer(obj, many=True).data
+        return ProductListNotMatchesSerializer(obj['data'], many=True).data
+
+    def get_offset(self, obj):
+        return obj['offset']
+
+    def get_limit(self, obj):
+        return obj['limit']
 
     def get_dealer_products_count(self, obj):
-        return len(ProductListNotMatchesSerializer(obj, many=True).data)
+        return obj['products_count']
+
+
+class DealerProductListResponseSerializer(serializers.Serializer):
+    product_list = serializers.SerializerMethodField()
+    offset = serializers.SerializerMethodField()
+    limit = serializers.SerializerMethodField()
+    products_count = serializers.SerializerMethodField()
+
+    def get_product_list(self, obj):
+        return ProductListAnyMatchesSerializer(obj['data'], many=True).data
+
+    def get_offset(self, obj):
+        return obj['offset']
+
+    def get_limit(self, obj):
+        return obj['limit']
+
+    def get_products_count(self, obj):
+        return obj['products_count']
 
 
 class DealerListResponseSerializer(serializers.Serializer):
