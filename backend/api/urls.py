@@ -6,6 +6,7 @@ from api.management.schema import schema_view
 url_list = [
     path('product-to-matched-list/', views.ProductListToMatches.as_view(), name='product_to_matched_list'),
     path('product-list/', views.ProductList.as_view(), name='product_list'),
+    path('dealer-product-list/', views.DealerProductList.as_view(), name='dealer_product_list'),
     re_path(r'^product-detail/(?P<pk>\w+)/$', views.ProductDetail.as_view(), name='product_detail'),
     path('dealer-list/', views.DealerList.as_view(), name='dealer_list'),
     re_path(r'dealer-detail/(?P<pk>\w+)/$', views.DealerDetail.as_view(), name='dealer_detail'),
