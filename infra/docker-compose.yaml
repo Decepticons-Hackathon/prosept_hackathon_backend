@@ -2,14 +2,6 @@ version: '3.8'
 
 services:
 
-  data-science:
-    build: 
-      context: ../data-science
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - "8888:8888"
-
   backend:
     build:
       context: ../backend
@@ -21,6 +13,7 @@ services:
       - ./.env
     volumes:
       - static_value:/backend_static/static/
+      - static_value:/app/collected_static/
 
   nginx:
     image: nginx:1.25.2-alpine
