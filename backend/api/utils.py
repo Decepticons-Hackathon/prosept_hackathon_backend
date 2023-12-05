@@ -19,8 +19,7 @@ from api.serializers.ml_serializers import (DealerProductMlSerializer,
                                             ProductMlSerializer)
 from ml_models.decepticon_ml_model.recommendation_model import \
     recommendation_model
-from ml_models.decepticon_ml_model.recommendation_model_version_2 import \
-    RecommendationModel
+
 
 logger = logging.getLogger(__name__)
 
@@ -276,14 +275,11 @@ class MlMatches:
             list_for_model = [
                 {
                     'product_name': item.get('product_name'),
-                    # 'dealer_id': item.get('dealer_id')
+                    'dealer_id': item.get('dealer_id')
                 }
             ]
             try:
-                # data = recommendation_model(list_for_model, products_data)
-                ml_func = RecommendationModel(products_data)
-                ml_func.preprocessing_bd()
-                data = RecommendationModel(products_data).result(list_for_model)
+                data = recommendation_model(list_for_model, products_data)
                 dict_for_base = {
                     'dealer_product_id': item.get('dealer_product_id'),
                     'variants': data
