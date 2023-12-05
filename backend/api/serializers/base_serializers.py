@@ -10,7 +10,7 @@ class DealerSerializer(serializers.Serializer):
 
 
 class ProductSerializer(serializers.Serializer):
-    product_id = serializers.IntegerField()
+    id = serializers.IntegerField()
     article = serializers.CharField(max_length=64)
     ean_13 = serializers.CharField(max_length=64)
     name = serializers.CharField(max_length=256)
@@ -27,7 +27,7 @@ class ProductSerializer(serializers.Serializer):
 
 
 class ProductMiniSerializer(serializers.Serializer):
-    product_id = serializers.IntegerField()
+    id = serializers.IntegerField()
     name_1c = serializers.CharField(max_length=256)
 
 
