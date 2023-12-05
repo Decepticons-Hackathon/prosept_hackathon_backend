@@ -11,16 +11,15 @@ def recommendation_model(parser_data, product_data, n_matchs=5):
     Возвращает список с id товарами производителя, в порядке убывания схожести.
     """
     import os
+    import pickle
     import re
 
     import numpy as np
     import pandas as pd
-    import pickle
     import torch
-
     from fuzzywuzzy import fuzz
     # from sklearn.metrics import precision_score
-    from transformers import AutoTokenizer, AutoModel, logging
+    from transformers import AutoModel, AutoTokenizer, logging
 
     logging.set_verbosity_error()
 

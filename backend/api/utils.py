@@ -10,10 +10,12 @@ from rest_framework import status
 from api import __version__ as version
 from api.models import (CORRECT_CONDITIONS, STATUS_TYPE, Dealer, DealerPrice,
                         DealerProduct, DealerProductStausChange,
-                        DealerProductStausHistory, DealerProductVariants, Product)
-from api.serializers.ml_serializers import DealerProductMlSerializer, ProductMlSerializer
-from ml_models.decepticon_ml_model.recommendation_model import recommendation_model
-
+                        DealerProductStausHistory, DealerProductVariants,
+                        Product)
+from api.serializers.ml_serializers import (DealerProductMlSerializer,
+                                            ProductMlSerializer)
+from ml_models.decepticon_ml_model.recommendation_model import \
+    recommendation_model
 
 logger = logging.getLogger(__name__)
 
