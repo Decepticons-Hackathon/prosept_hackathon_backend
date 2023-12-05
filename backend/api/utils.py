@@ -19,6 +19,8 @@ from api.serializers.ml_serializers import (DealerProductMlSerializer,
                                             ProductMlSerializer)
 from ml_models.decepticon_ml_model.recommendation_model import \
     recommendation_model
+from ml_models.decepticon_ml_model.recommendation_model_version_2 import \
+    RecommendationModel
 
 logger = logging.getLogger(__name__)
 
@@ -274,15 +276,19 @@ class MlMatches:
             list_for_model = [
                 {
                     'product_name': item.get('product_name'),
-                    'dealer_id': item.get('dealer_id')
+                    # 'dealer_id': item.get('dealer_id')
                 }
             ]
             try:
-                data = recommendation_model(list_for_model, products_data)
+                # data = recommendation_model(list_for_model, products_data)
+                ml_func = RecommendationModel(products_data)
+                ml_func.preprocessing_bd()
+                data = RecommendationModel(products_data).result(list_for_model)
                 dict_for_base = {
                     'dealer_product_id': item.get('dealer_product_id'),
                     'variants': data
                 }
+                print(data)
                 variants_list.append(dict_for_base)
             except Exception as error:
                 logger.error(f'Ошибка получения вариантов для объекта {item}: {str(error)}')
@@ -290,10 +296,10 @@ class MlMatches:
             if cnt == 10:
                 break
         logger.info(f'Получение вариантов для {cnt} записей товаров завершено.')
-        try:
-            self.__set_variants_to_db(variants_list)
-        except Exception as error:
-            logger.error(f'Ошибка сохранения результатов в БД: {str(error)}')
+        # try:
+        #     self.__set_variants_to_db(variants_list)
+        # except Exception as error:
+        #     logger.error(f'Ошибка сохранения результатов в БД: {str(error)}')
         return
 
 
