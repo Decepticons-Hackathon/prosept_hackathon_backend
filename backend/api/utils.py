@@ -20,7 +20,6 @@ from api.serializers.ml_serializers import (DealerProductMlSerializer,
 from ml_models.decepticon_ml_model.recommendation_model import \
     recommendation_model
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -284,7 +283,6 @@ class MlMatches:
                     'dealer_product_id': item.get('dealer_product_id'),
                     'variants': data
                 }
-                print(data)
                 variants_list.append(dict_for_base)
             except Exception as error:
                 logger.error(f'Ошибка получения вариантов для объекта {item}: {str(error)}')
