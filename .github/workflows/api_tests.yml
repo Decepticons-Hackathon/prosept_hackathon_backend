@@ -33,6 +33,6 @@ jobs:
         run: |
           touch .env
 
-          echo DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
+          echo SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
 
           python manage.py test api.tests --verbosity=2

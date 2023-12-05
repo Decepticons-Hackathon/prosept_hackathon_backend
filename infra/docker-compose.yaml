@@ -2,6 +2,17 @@ version: '3.8'
 
 services:
 
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../frontend/build:/usr/share/nginx/html/
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+
   backend:
     build:
       context: ../backend
