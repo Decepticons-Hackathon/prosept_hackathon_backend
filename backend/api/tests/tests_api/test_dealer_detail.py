@@ -20,7 +20,7 @@ class DealerDetailTestClass(ApiTestsClass):
 
         dealer_product = data.get('dealer_products')[0].get('product')
 
-        self.assertEqual(dealer_product.get('product_id'), 12)
+        self.assertEqual(dealer_product.get('id'), 489)
         self.assertEqual(dealer_product.get('article'), '105-00')
         self.assertEqual(dealer_product.get('ean_13'), '4680008143563.0')
         self.assertEqual(
