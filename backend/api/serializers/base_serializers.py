@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from api.models import DealerProductStausChange, DealerProductStausHistory, DealerProductVariants
+from api.models import (DealerProductStausChange, DealerProductStausHistory,
+                        DealerProductVariants)
 
 
 class DealerSerializer(serializers.Serializer):

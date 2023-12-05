@@ -18,13 +18,9 @@ from api.models import (
     Product
 )
 from api.serializers.response_serializers import (
-    DealerDetailResponseSerializer,
-    DealerListResponseSerializer,
-    DealerProductListResponseSerializer,
-    DealerProductStatResponseSerializer,
-    ProductListResponseSerializer,
-    ProductListToMatchesResponseSerializer
-)
+    DealerDetailResponseSerializer, DealerListResponseSerializer,
+    DealerProductListResponseSerializer, DealerProductStatResponseSerializer,
+    ProductListResponseSerializer, ProductListToMatchesResponseSerializer)
 from api.utils import JsonResponse, force_int
 
 

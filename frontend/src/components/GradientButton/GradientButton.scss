@@ -1,0 +1,29 @@
+@import "../../constants/constants.scss";
+
+.gradient_button {
+  margin: 10px 0px;
+  padding: 12px;
+  width: 140px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: $text-white;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  background: $gradient-button;
+  background-size: 250% 100%;
+  background-position: 50% 0;
+  transition: background-position 0.5s;
+  border: none;
+  border-radius: 12px;
+}
+.gradient_button:hover {
+  background-position: 0 0;
+  cursor: pointer;
+}
+
+.gradient_button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
