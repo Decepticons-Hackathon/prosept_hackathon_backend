@@ -2,19 +2,13 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.views import APIView
 
-from api.models import (
-    CORRECT_CONDITIONS, Dealer, DealerPrice, DealerProduct,
-    DealerProductStausChange, DealerProductStausHistory,
-    Product
-)
+from api.models import (CORRECT_CONDITIONS, Dealer, DealerPrice, DealerProduct,
+                        DealerProductStausChange, DealerProductStausHistory,
+                        Product)
 from api.serializers.response_serializers import (
-    DealerDetailResponseSerializer,
-    DealerListResponseSerializer,
-    DealerProductListResponseSerializer,
-    DealerProductStatResponseSerializer,
-    ProductListResponseSerializer,
-    ProductListToMatchesResponseSerializer
-)
+    DealerDetailResponseSerializer, DealerListResponseSerializer,
+    DealerProductListResponseSerializer, DealerProductStatResponseSerializer,
+    ProductListResponseSerializer, ProductListToMatchesResponseSerializer)
 from api.utils import JsonResponse, force_int
 
 # TODO: Разобраться почему @swagger_auto_schema не работает
