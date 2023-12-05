@@ -292,10 +292,10 @@ class MlMatches:
             if cnt == 10:
                 break
         logger.info(f'Получение вариантов для {cnt} записей товаров завершено.')
-        # try:
-        #     self.__set_variants_to_db(variants_list)
-        # except Exception as error:
-        #     logger.error(f'Ошибка сохранения результатов в БД: {str(error)}')
+        try:
+            self.__set_variants_to_db(variants_list)
+        except Exception as error:
+            logger.error(f'Ошибка сохранения результатов в БД: {str(error)}')
         return
 
 
