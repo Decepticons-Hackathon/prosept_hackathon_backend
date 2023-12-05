@@ -106,9 +106,10 @@ class DealerProductVariants(models.Model):
 
 
 CORRECT_CONDITIONS = (
-    ('true', 'Подтвердить',),
-    ('false', 'Отклонить',),
-    ('none', 'Отложить',),
+    ('approve', 'Подтвердить',),
+    ('disapprove', 'Отклонить',),
+    ('aside', 'Отложить',),
+    ('none', 'Не определено',),
 )
 
 
@@ -127,9 +128,9 @@ class DealerProductStausChange(models.Model):
         on_delete=models.CASCADE
     )
     status = models.CharField(
-        max_length=5,
+        max_length=10,
         choices=CORRECT_CONDITIONS,
-        default=CORRECT_CONDITIONS[2][0],
+        default=CORRECT_CONDITIONS[3][0],
         db_index=True
     )
     status_datetime = models.DateTimeField(
@@ -140,7 +141,9 @@ class DealerProductStausChange(models.Model):
 STATUS_TYPE = (
     ('ds', 'Рекомендательная модель',),
     ('manual', 'Поиск в ручную',),
-    ('none', 'Не размечена',),
+    ('none', 'Не размечен',),
+    ('aside', 'Отложенный',),
+    ('cancel', 'Сброшенный',),
 )
 
 

@@ -3,6 +3,7 @@ import logging
 import os
 
 from django.conf import settings
+from django.db import transaction
 from django.db.models import Subquery
 from django.http import JsonResponse as JsonResponseBase
 from rest_framework import status
@@ -212,7 +213,7 @@ class MlMatches:
     """
     def __get_diller_data_to_matches(self):
         diller_products = DealerProductStausChange.objects.filter(
-            status=CORRECT_CONDITIONS[2][0]
+            status=CORRECT_CONDITIONS[3][0]
         )
         data = DealerProductMlSerializer(diller_products, many=True).data
         return [dict(item) for item in data]
@@ -222,9 +223,11 @@ class MlMatches:
         data = ProductMlSerializer(products, many=True).data
         return [dict(item) for item in data]
 
+    @transaction.atomic
     def __set_variants_to_db(self, items):
         logger.info('Стираю старые данные вариантов.')
         try:
+            # TODO: изменить поведение, на удаление только из списка поступивших
             DealerProductVariants.objects.all().delete()
         except Exception as error:
             logger.error(f'Ошибка удаления старых данных вариантов: {str(error)}')
@@ -280,6 +283,8 @@ class MlMatches:
             except Exception as error:
                 logger.error(f'Ошибка получения вариантов для объекта {item}: {str(error)}')
             cnt += 1
+            if cnt == 10:
+                break
         logger.info(f'Получение вариантов для {cnt} записей товаров завершено.')
         try:
             self.__set_variants_to_db(variants_list)
