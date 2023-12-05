@@ -1,0 +1,58 @@
+@import "../../constants/constants.scss";
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+
+  .text {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 15px;
+    color: $text-green;
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+  .inputs {
+    width: 500px;
+  }
+
+  .checkbox {
+    color: rgb(56, 164, 58);
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+
+    .button {
+      width: 100px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 300;
+      color: $text-white;
+      text-align: center;
+      text-decoration: none;
+      text-transform: none;
+      background-image: $background-gradient;
+      border: none;
+      border-radius: 12px;
+    }
+  }
+
+  .actionLinksContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .actionLinksContainer Link:hover {
+    text-decoration: underline;
+  }
+}

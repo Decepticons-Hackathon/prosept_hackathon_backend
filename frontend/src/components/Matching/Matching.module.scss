@@ -1,0 +1,125 @@
+@import "../../constants/constants.scss";
+
+.table {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+  height: 80vh;
+  width: 100%;
+  border-radius: 50px;
+  border: 5px solid rgba(56, 164, 58, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  .goods {
+    margin-top: 20px;
+    width: 600px;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 30px;
+    border: 5px solid rgba(56, 164, 58, 0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .text {
+    margin: 0;
+    margin-top: 25px;
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    text-decoration: underline rgba(56, 164, 58, 0.3);
+  }
+
+  .customScroll {
+    overflow-y: auto;
+  }
+
+  .goodList {
+    margin: 15px 0 0 10px;
+    padding: 0;
+    width: 100%;
+    border-radius: 50px;
+    border: 1px solid rgba(56, 164, 58, 0.5);
+    width: 400px;
+  }
+
+  .goodsText {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  .goodList:last-child {
+    margin-bottom: 30px;
+  }
+
+  .optionsContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search {
+    margin-top: 15px;
+  }
+
+  .options {
+    margin-top: 40px;
+    padding-bottom: 30px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    border: 5px solid rgba(56, 164, 58, 0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .optionsText {
+    margin: 0;
+    margin-top: 25px;
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    text-decoration: underline rgba(56, 164, 58, 0.3);
+  }
+
+  .optionList {
+    margin: 15px 0 0 10px;
+    padding: 0;
+    width: 100%;
+    border-radius: 50px;
+    border: 1px solid rgb(24, 202, 251, 0.9);
+    width: 500px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    column-gap: 15px;
+  }
+
+  .historyBtn {
+    margin-top: 20px;
+    width: 500px;
+    height: 50px;
+    margin: 10px 0px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    color: $text-white;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    background: $gradient-button;
+    background-size: 250% 100%;
+    background-position: 50% 0;
+    transition: background-position 0.5s;
+    border: none;
+    border-radius: 12px;
+  }
+  .historyBtn:hover {
+    background-position: 0 0;
+    cursor: pointer;
+  }
+}
