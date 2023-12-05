@@ -53,7 +53,15 @@ class ProductListToMatches(APIView):
         data = {}
         params = request.GET
         query = DealerProductStausChange.objects.filter(
-            status=CORRECT_CONDITIONS[3][0]
+            status__in=[
+                CORRECT_CONDITIONS[1][0],
+                CORRECT_CONDITIONS[2][0],
+                CORRECT_CONDITIONS[3][0],
+                # исправить
+                ('disapprove',),
+                ('aside',),
+                ('none',),
+            ]
         )
         data['products_count'] = query.count()
         data['offset'] = force_int(params.get('offset', 0))
