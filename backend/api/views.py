@@ -21,7 +21,7 @@ from api.serializers.response_serializers import (
     DealerDetailResponseSerializer, DealerListResponseSerializer,
     DealerProductListResponseSerializer, DealerProductStatResponseSerializer,
     ProductListResponseSerializer, ProductListToMatchesResponseSerializer)
-from api.utils import JsonResponse, force_int
+from api.utils import GetStat, JsonResponse, force_int
 
 
 logger = logging.getLogger(__name__)
@@ -196,10 +196,10 @@ class ProductMatching(APIView):
             except Exception as error:
                 logger.error(f'Ошибка обработки запроса: {str(error)}')
         return JsonResponse(
-                    {},
-                    code=400,
-                    message='Ошибка обработки запроса'
-                )
+            {},
+            code=400,
+            message='Ошибка обработки запроса'
+        )
 
 
 class DealerList(APIView):
@@ -235,6 +235,31 @@ class DealerDetail(APIView):
         return JsonResponse(serializers.data)
 
 
+class DealersStat(APIView):
+    def get(self, request):
+        """
+        Выводит статистику по диллерам
+        """
+        try:
+            return JsonResponse(GetStat.get_dealer_stat())
+        except Exception as error:
+            logger.error(f'Ошибка получения статистики: {str(error)}')
+        return JsonResponse({}, code=400, message='Ошибка получения статистики')
+
+
+class MLStat(APIView):
+
+    def get(self, request):
+        """
+        Выводит статистику обработки моделью ДС
+        """
+        try:
+            return JsonResponse(GetStat.get_ml_stat())
+        except Exception as error:
+            logger.error(f'Ошибка получения статистики: {str(error)}')
+        return JsonResponse({}, code=400, message='Ошибка получения статистики')
+
+
 class ProductsStat(APIView):
 
     # добавить в сваггер 404
@@ -258,6 +283,7 @@ class ProductsStat(APIView):
 
 
 class MlForceUpdate(APIView):
+
     def get(self, request):
         """
         Принудительное обновление рекомендаций
@@ -265,3 +291,16 @@ class MlForceUpdate(APIView):
         # TODO: сделать через Celery либо threads
         # MlMatches().get_ml_variants()
         return JsonResponse({}, message='Ok')
+
+
+class AppDicts(APIView):
+
+    def get(self, request):
+        """
+        Справочники приложения
+        """
+        data = {
+            'conditions': list(map(lambda p: {p[0]: p[1]}, CORRECT_CONDITIONS)),
+            'status_types': list(map(lambda p: {p[0]: p[1]}, STATUS_TYPE)),
+        }
+        return JsonResponse(data)

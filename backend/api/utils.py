@@ -1,11 +1,13 @@
 import csv
 import logging
 import os
+from datetime import timedelta
 
 from django.conf import settings
 from django.db import transaction
 from django.db.models import Subquery
 from django.http import JsonResponse as JsonResponseBase
+from django.utils import timezone
 from rest_framework import status
 
 from api import __version__ as version
@@ -293,3 +295,76 @@ class MlMatches:
         except Exception as error:
             logger.error(f'Ошибка сохранения результатов в БД: {str(error)}')
         return
+
+
+class GetStat:
+
+    @staticmethod
+    def get_dealer_stat():
+        today = timezone.now()
+        data = {'dealers': []}
+        broken_statuses = {
+            "('disapprove',)": 'disapprove',
+            "('approve',)": 'approve',
+            "('aside',)": 'aside',
+            "('none',)": 'none',
+        }
+        dealers = Dealer.objects.all().order_by('id')
+        for dealer in dealers:
+            dealer_dict = {}
+            dealer_dict['dealer'] = {
+                'id': dealer.id,
+                'name': dealer.name
+            },
+            dealer_products_statuses = {
+                'approve': 0,
+                'disapprove': 0,
+                'aside': 0,
+                'none': 0
+            }
+            dealer_products = DealerProductStausChange.objects.filter(dealer_id=dealer)
+            for product in dealer_products:
+                status_ = product.status
+                # TODO: исправить после исправления записи в БД
+                if status_ in broken_statuses:
+                    status_ = broken_statuses[status_]
+                dealer_products_statuses[status_] += 1
+            dealer_dict['stat_all'] = dealer_products_statuses
+            dealer_products = DealerProductStausChange.objects.filter(
+                dealer_id=dealer,
+                status_datetime__range=[today - timedelta(days=1), today]
+            )
+            for product in dealer_products:
+                status_ = product.status
+                # TODO: исправить после исправления записи в БД
+                if status_ in broken_statuses:
+                    status_ = broken_statuses[status_]
+                dealer_products_statuses[status_] += 1
+            dealer_dict['stat_today'] = dealer_products_statuses
+            data['dealers'].append(dealer_dict)
+        return data
+
+    @staticmethod
+    def get_ml_stat():
+        query_stat = DealerProductStausHistory.objects.all()
+        data = {
+            'ds': len(
+                query_stat.filter(status_type__in=['ds', "('ds',)"])
+            ),
+            'manual': len(
+                query_stat.filter(status_type__in=['manual', "('manual',)"])
+            ),
+            'cancel': len(
+                query_stat.filter(status_type__in=['cancel', "('cancel',)"])
+            ),
+            'var_1': 0,
+            'var_2': 0,
+            'var_3': 0,
+            'var_4': 0,
+            'var_5': 0,
+        }
+        for item in query_stat:
+            if item.product_variant:
+                status_var = f'var_{item.product_variant.degree_of_agreement}'
+                data[status_var] += 1
+        return data
