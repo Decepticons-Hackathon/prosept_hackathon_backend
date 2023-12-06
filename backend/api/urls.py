@@ -14,8 +14,9 @@ url_list = [
     re_path(r'dealer-detail/(?P<pk>\w+)/$', v1.DealerDetail.as_view(), name='dealer_detail'),
     re_path(r'product-stat/(?P<pk>\w+)/$', v1.ProductsStat.as_view(), name='product_stat'),
     path('ml-force-update/', v1.MlForceUpdate.as_view(), name='ml_force_update'),
+    path('ml-force-update-product/', v1.MlForceUpdateProduct.as_view(), name='ml_force_product_update'),
     path('references/', v1.AppDicts.as_view(), name='references'),
-    # TODO: Перенести в backend, сделать зависимым от debug=True
+    # TODO: сделать зависимым от debug=True
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
