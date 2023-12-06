@@ -62,7 +62,7 @@ class DealerPrice(models.Model):
         max_length=256
     )
     product_name = models.CharField(
-        max_length=64,
+        max_length=256,
         db_index=True
     )
     date = models.DateField()
