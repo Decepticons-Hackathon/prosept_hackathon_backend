@@ -7,7 +7,7 @@ import { DealerListResult } from "./models/DealerListResult";
 import { DealerDetailResult } from "./models/DealerDetailResult";
 import { ProductStatResult } from "./models/ProductStatResult";
 
-const BASEURL = "http://81.31.246.148:8000/api/v1";
+const BASEURL = "http://localhost:8000/api/v1";
 
 // GET   product-to-matched-list/ список не размеченных товаров
 // GET   product-list/                       список товаров
