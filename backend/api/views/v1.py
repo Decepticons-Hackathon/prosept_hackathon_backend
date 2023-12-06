@@ -21,7 +21,7 @@ from api.serializers.response_serializers import (
     DealerDetailResponseSerializer, DealerListResponseSerializer,
     DealerProductListResponseSerializer, DealerProductStatResponseSerializer,
     ProductListResponseSerializer, ProductListToMatchesResponseSerializer)
-from api.utils import GetStat, JsonResponse, force_int
+from api.utils import GetStat, JsonResponse, force_int, MlMatches
 
 
 logger = logging.getLogger(__name__)
@@ -128,12 +128,6 @@ class ProductMatching(APIView):
     @transaction.atomic
     def _set_not_approve(self, button, dealer_product):
         def _set_status_and_history(product_status, product_condition):
-            # TODO: Придумать как возвращать ошибку
-            if DealerProductStausChange.objects.filter(
-                dealer_product_id=dealer_product,
-                status=CORRECT_CONDITIONS[0][0]
-            ).exists():
-                return
             DealerProductStausHistory.objects.create(
                 dealer_product_id=dealer_product,
                 status_type=product_status,
@@ -148,11 +142,14 @@ class ProductMatching(APIView):
             _set_status_and_history(STATUS_TYPE[3][0], CORRECT_CONDITIONS[2][0])
         if button == 'disapprove':
             _set_status_and_history(STATUS_TYPE[4][0], CORRECT_CONDITIONS[1][0])
-            obj_variants = DealerProductVariants.objects.filter(
-                dealer_product_id=dealer_product
-            )
-            for obj_variant in obj_variants:
-                obj_variant.delete()
+            try:
+                obj_variants = DealerProductVariants.objects.filter(
+                    dealer_product_id=dealer_product
+                )
+                for obj_variant in obj_variants:
+                    obj_variant.delete()
+            except DealerProductVariants.DoesNotExist:
+                pass
         return
 
     # @swagger_auto_schema(responses={200: ProductSerializer})
@@ -188,10 +185,7 @@ class ProductMatching(APIView):
                 logger.error(f'Ошибка обработки запроса: {str(error)}')
         if button == 'aside' or button == 'disapprove':
             try:
-                data = self._set_not_approve(button, dealer_product)
-                print(data)
-                if data:
-                    return JsonResponse({}, code=400, message=data)
+                self._set_not_approve(button, dealer_product)
                 return JsonResponse({}, message='Ок')
             except Exception as error:
                 logger.error(f'Ошибка обработки запроса: {str(error)}')
@@ -288,8 +282,28 @@ class MlForceUpdate(APIView):
         """
         Принудительное обновление рекомендаций
         """
-        # TODO: сделать через Celery либо threads
+        # TODO: запускать отдельным процессом либо через очередь
         # MlMatches().get_ml_variants()
+        return JsonResponse({}, message='Ok')
+
+
+class MlForceUpdateProduct(APIView):
+
+    def post(self, request):
+        """
+        Принудительное обновление рекомендаций для одного товара
+        """
+        params = request.POST
+        dealer_product_id = force_int(params.get('dealer_product_id', 0))
+        variants_count = force_int(params.get('variants_count', 0))
+        try:
+            dealer_product = DealerPrice.objects.get(id=dealer_product_id)
+        except DealerPrice.DoesNotExist:
+            return JsonResponse(code=404, message='Объект не найден')
+        if variants_count > 0:
+            MlMatches().get_ml_variant(dealer_product, variants_count)
+        else:
+            MlMatches().get_ml_variant(dealer_product)
         return JsonResponse({}, message='Ok')
 
 

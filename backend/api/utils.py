@@ -234,8 +234,11 @@ class MlMatches:
     def __set_variants_to_db(self, items):
         logger.info('Стираю старые данные вариантов.')
         try:
-            # TODO: изменить поведение, на удаление только из списка поступивших
-            DealerProductVariants.objects.all().delete()
+            for item in items:
+                dealer_product = DealerPrice.objects.get(id=item.get('dealer_product_id'))
+                ojects = DealerProductVariants.objects.filter(dealer_product_id=dealer_product)
+                for obj in ojects:
+                    obj.delete()
         except Exception as error:
             logger.error(f'Ошибка удаления старых данных вариантов: {str(error)}')
             return
@@ -316,6 +319,27 @@ class MlMatches:
             self.__set_variants_to_db(variants_list)
         except Exception as error:
             logger.error(f'Ошибка сохранения результатов в БД: {str(error)}')
+        return
+
+    def get_ml_variant(self, dealer_product, variants=5):
+        list_for_model = [
+            {
+                'product_name': dealer_product.product_name
+            }
+        ]
+        try:
+            products_data = self.__get_products_data()
+            ml_func = RecommendationModel(products_data)
+            ml_func.preprocessing_bd()
+            data = ml_func.result(list_for_model, variants)
+            variants_list = [{
+                'dealer_product_id': dealer_product.id,
+                'variants': data
+            }]
+            self.__set_variants_to_db(variants_list)
+            return True
+        except Exception as error:
+            logger.error(f'Ошибка получения вариантов для объекта 2 {dealer_product.id}: {str(error)}')
         return
 
 
