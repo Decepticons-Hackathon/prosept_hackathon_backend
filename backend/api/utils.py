@@ -236,9 +236,12 @@ class MlMatches:
         try:
             for item in items:
                 dealer_product = DealerPrice.objects.get(id=item.get('dealer_product_id'))
-                ojects = DealerProductVariants.objects.filter(dealer_product_id=dealer_product)
-                for obj in ojects:
-                    obj.delete()
+                try:
+                    ojects = DealerProductVariants.objects.filter(dealer_product_id=dealer_product)
+                    for obj in ojects:
+                        obj.delete()
+                except DealerProductVariants.DoesNotExist:
+                    continue
         except Exception as error:
             logger.error(f'Ошибка удаления старых данных вариантов: {str(error)}')
             return
