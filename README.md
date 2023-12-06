@@ -27,4 +27,4 @@
 
 * Python >= 3.10 ([Разработка серверной части](docs/technical/backend-dev.md))
 * Django >= 4.2
-* Node.js >= _____
+* React >= _____ ([Разработка фронтенда](docs/technical/frontend-dev.md))
