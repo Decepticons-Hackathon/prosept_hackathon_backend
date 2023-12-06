@@ -19,6 +19,9 @@ from api.serializers.ml_serializers import (DealerProductMlSerializer,
                                             ProductMlSerializer)
 from ml_models.decepticon_ml_model.recommendation_model import \
     recommendation_model
+from ml_models.decepticon_ml_model.recommendation_model_version_2 import \
+    RecommendationModel
+
 
 logger = logging.getLogger(__name__)
 
@@ -260,7 +263,10 @@ class MlMatches:
         logger.info('Завершена запись вариантов в БД.')
         return
 
-    def get_ml_variants(self):
+    def get_ml_variants(self, version=2):
+        if version not in [1, 2]:
+            logger.error(f'Неподдержиываемая версия ML модели: {version}')
+            return
         variants_list = []
         try:
             products_data = self.__get_products_data()
@@ -271,24 +277,40 @@ class MlMatches:
         cnt = 0
         logger.info(f'Начинаю обработку {len(data_for_matching)} позиций.')
         for item in data_for_matching:
-            list_for_model = [
-                {
-                    'product_name': item.get('product_name'),
-                    'dealer_id': item.get('dealer_id')
-                }
-            ]
-            try:
-                data = recommendation_model(list_for_model, products_data)
-                dict_for_base = {
-                    'dealer_product_id': item.get('dealer_product_id'),
-                    'variants': data
-                }
-                variants_list.append(dict_for_base)
-            except Exception as error:
-                logger.error(f'Ошибка получения вариантов для объекта {item}: {str(error)}')
+            if version == 2:
+                list_for_model = [
+                    {
+                        'product_name': item.get('product_name')
+                    }
+                ]
+                try:
+                    ml_func = RecommendationModel(products_data)
+                    ml_func.preprocessing_bd()
+                    data = ml_func.result(list_for_model)
+                    dict_for_base = {
+                        'dealer_product_id': item.get('dealer_product_id'),
+                        'variants': data
+                    }
+                    variants_list.append(dict_for_base)
+                except Exception as error:
+                    logger.error(f'Ошибка получения вариантов для объекта {item}: {str(error)}')
+            else:
+                list_for_model = [
+                    {
+                        'product_name': item.get('product_name'),
+                        'dealer_id': item.get('dealer_id')
+                    }
+                ]
+                try:
+                    data = recommendation_model(list_for_model, products_data)
+                    dict_for_base = {
+                        'dealer_product_id': item.get('dealer_product_id'),
+                        'variants': data
+                    }
+                    variants_list.append(dict_for_base)
+                except Exception as error:
+                    logger.error(f'Ошибка получения вариантов для объекта 2 {item}: {str(error)}')
             cnt += 1
-            if cnt == 10:
-                break
         logger.info(f'Получение вариантов для {cnt} записей товаров завершено.')
         try:
             self.__set_variants_to_db(variants_list)
