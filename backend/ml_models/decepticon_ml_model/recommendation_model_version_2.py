@@ -15,7 +15,7 @@ logging.set_verbosity_error()
 class RecommendationModel:
     def __init__(self, product_data):
         self.product_data = pd.DataFrame(product_data)
-        pickle_model_path = os.path.join(os.path.dirname(__file__), 'pickle_model_version_2.pkl')
+        pickle_model_path = os.path.join(os.path.dirname(__file__), 'pickle_model_version_2_2.pkl')
         with open(pickle_model_path, "rb") as file:
             unpickler = pickle.Unpickler(file)
             self.pretrained_model = unpickler.load()
@@ -28,6 +28,7 @@ class RecommendationModel:
         self.product_data['mera'] = self.product_data['name'].apply(self.add_metering)
         self.product_data['mera_let'] = self.product_data['mera'].apply(self.find_letters)
         self.product_data['mera_num'] = self.product_data['mera'].apply(self.find_numbers)
+        self.product_data['name'] = self.product_data['name'].apply(self.replace_kg_and_g)
 
         self.product_data.drop(['mera'], axis=1, inplace=True)
 
@@ -54,6 +55,7 @@ class RecommendationModel:
         parser_data['product_mera'] = parser_data['product_name'].apply(self.add_metering)
         parser_data['product_mera_let'] = parser_data['product_mera'].apply(self.find_letters)
         parser_data['product_mera_num'] = parser_data['product_mera'].apply(self.find_numbers)
+        parser_data['product_name'] = parser_data['product_name'].apply(self.replace_kg_and_g)
         parser_data.drop(['product_mera'], axis=1, inplace=True)
 
         # -------Эмбеддинг для признака product_name-------
@@ -99,8 +101,9 @@ class RecommendationModel:
 
         # -------Предсказания модели-------
         df['pred'] = self.pretrained_model.predict(df)
+        df[['predict_proba_0', 'predict_proba_1']] = self.pretrained_model.predict_proba(df.drop("pred", axis=1))
         df['product_id'] = id_df
-        df = df.query('pred == 1').sort_values(['fuzz'], ascending=False)
+        df = df.query('pred == 1').sort_values(['predict_proba_1'], ascending=False)
         return df.product_id.to_list()[:n_matchs]
 
     # -------Функции предобработки-------
@@ -157,3 +160,12 @@ class RecommendationModel:
         кг в граммы, литры в мл
         """
         return product_mera_let == 'кг' and mera_let == 'г' or product_mera_let == 'л' and mera_let == 'мл'
+
+    def replace_kg_and_g(self, text):
+        """
+        Удаление метрики измерения и количества из названия
+        """
+        try:
+            return re.sub(r'(\d{1,}(?:[\.,]\d+)?\s?(л|мл|кг|г))\b', '', text).rstrip(' ,/')
+        except Exception:
+            return text
