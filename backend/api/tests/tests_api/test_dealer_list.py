@@ -7,20 +7,20 @@ from api.tests.utils import ApiTestsClass
 class DealerListTestClass(ApiTestsClass):
     url = '/api/v1/dealer-list/'
 
-    @tag('api', '')
+    @tag('api', 'dealer-list')
     def test_dealer_list(self):
 
         data = self.get_api()
 
         self.assertIsInstance(data.get('dealers'), list)
-        self.assertEqual(data.get('dealers_count'), 18)
+        self.assertEqual(data.get('dealers_count'), 3)
 
         dealers = data.get('dealers')
         for dealer in dealers:
             self.assertIsInstance(dealer, dict)
 
-        self.assertEqual(dealers[3].get('id'), 4)
-        self.assertEqual(dealers[3].get('name'), 'Baucenter')
+        self.assertEqual(dealers[2].get('id'), 3)
+        self.assertEqual(dealers[2].get('name'), 'Dealer 3')
 
     def get_api(self):
 
