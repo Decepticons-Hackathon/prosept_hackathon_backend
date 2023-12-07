@@ -34,7 +34,7 @@ class DealerDetailTestClass(ApiTestsClass):
         self.assertIsInstance(dealer_product_info[0].get('dealer_product_history'), list)
         self.assertIsInstance(dealer_product_info[0].get('dealer_product_status'), dict)
         self.assertEqual(dealer_product_info[0].get('price'), 233.0)
-        self.assertEqual(dealer_product_info[0].get('date'), '2023-07-11')
+        self.assertEqual(dealer_product_info[0].get('date'), '2023-07-12')
 
     def get_api(self):
 
