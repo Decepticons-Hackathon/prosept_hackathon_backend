@@ -1,7 +1,7 @@
 from django.urls import include, path, re_path
 
-from api.views import v1
 from api.management.schema import schema_view
+from api.views import v1
 
 url_list = [
     path('product-to-matched-list/', v1.ProductListToMatches.as_view(), name='product_to_matched_list'),

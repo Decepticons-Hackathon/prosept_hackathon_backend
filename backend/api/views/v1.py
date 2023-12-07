@@ -6,23 +6,20 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.views import APIView
 
-from api.models import (
-    CORRECT_CONDITIONS,
-    STATUS_TYPE,
-    Dealer,
-    DealerPrice,
-    DealerProduct,
-    DealerProductStausChange,
-    DealerProductStausHistory,
-    DealerProductVariants,
-    Product
-)
+from api.models import (CORRECT_CONDITIONS, STATUS_TYPE, Dealer, DealerPrice,
+                        DealerProduct, DealerProductStausChange,
+                        DealerProductStausHistory, DealerProductVariants,
+                        Product)
 from api.serializers.response_serializers import (
     DealerDetailResponseSerializer, DealerListResponseSerializer,
     DealerProductListResponseSerializer, DealerProductStatResponseSerializer,
     ProductListResponseSerializer, ProductListToMatchesResponseSerializer)
-from api.utils import GetStat, JsonResponse, force_int, MlMatches
-
+from api.serializers.swagger_serializers import (
+    SwaggerDealerDetailSerializer, SwaggerDealerPriceSerializer,
+    SwaggerDealerProductListSerializer, SwaggerDealerSerializer,
+    SwaggerDealersStatSerializer, SwaggerMatchStatSerializer,
+    SwaggerProductList, SwaggerProductSerializer)
+from api.utils import GetStat, JsonResponse, MlMatches, force_int
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 class ProductList(APIView):
 
-    @swagger_auto_schema(responses={200: ProductListResponseSerializer})
+    @swagger_auto_schema(responses={200: SwaggerProductList})
     def get(self, request):
         """
         Выводит список товаров
@@ -74,7 +71,7 @@ class ProductListToMatches(APIView):
 class DealerProductList(APIView):
 
     @swagger_auto_schema(
-        responses={200: ProductListToMatchesResponseSerializer}
+        responses={200: SwaggerDealerProductListSerializer}
     )
     def get(self, request):
         """
@@ -152,7 +149,7 @@ class ProductMatching(APIView):
                 pass
         return
 
-    # @swagger_auto_schema(responses={200: ProductSerializer})
+    @swagger_auto_schema(responses={200: SwaggerProductSerializer})
     def post(self, request):
         """
         Метод сопоставления товара образцу (действие разметки)
@@ -198,7 +195,7 @@ class ProductMatching(APIView):
 
 class DealerList(APIView):
 
-    @swagger_auto_schema(responses={200: DealerListResponseSerializer})
+    @swagger_auto_schema(responses={200: SwaggerDealerSerializer})
     def get(self, request):
         """
         Выводит список диллеров
@@ -211,7 +208,7 @@ class DealerList(APIView):
 class DealerDetail(APIView):
 
     # добавить в сваггер 404
-    @swagger_auto_schema(responses={200: DealerDetailResponseSerializer})
+    @swagger_auto_schema(responses={200: SwaggerDealerDetailSerializer})
     def get(self, request, pk):
         """
         Выводит список товаров диллера
@@ -230,6 +227,7 @@ class DealerDetail(APIView):
 
 
 class DealersStat(APIView):
+    @swagger_auto_schema(responses={200: SwaggerDealersStatSerializer})
     def get(self, request):
         """
         Выводит статистику по диллерам
@@ -243,6 +241,7 @@ class DealersStat(APIView):
 
 class MLStat(APIView):
 
+    @swagger_auto_schema(responses={200: SwaggerMatchStatSerializer})
     def get(self, request):
         """
         Выводит статистику обработки моделью ДС
@@ -257,7 +256,7 @@ class MLStat(APIView):
 class ProductsStat(APIView):
 
     # добавить в сваггер 404
-    @swagger_auto_schema(responses={200: DealerProductStatResponseSerializer})
+    @swagger_auto_schema(responses={200: SwaggerDealerPriceSerializer})
     def get(self, request, pk):
         """
         Выводит статистику по размеченным товарам

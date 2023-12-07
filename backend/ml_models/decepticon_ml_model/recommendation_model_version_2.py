@@ -1,13 +1,12 @@
 import os
+import pickle
 import re
 
 import numpy as np
 import pandas as pd
-import pickle
 import torch
 from fuzzywuzzy import fuzz
-from transformers import AutoTokenizer, AutoModel, logging
-
+from transformers import AutoModel, AutoTokenizer, logging
 
 logging.set_verbosity_error()
 
