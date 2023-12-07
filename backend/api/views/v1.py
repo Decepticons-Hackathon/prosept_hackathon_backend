@@ -278,7 +278,7 @@ class ProductsStat(APIView):
 
 class MlForceUpdate(APIView):
 
-    def get(self, request):
+    def post(self, request):
         """
         Принудительное обновление рекомендаций
         """

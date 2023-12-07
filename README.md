@@ -17,7 +17,8 @@
 
 ## Подробности:
 
-* [Описание модели сопоставления](docs/technical/ds-description.md)
+* [Описание модели сопоставления](https://github.com/Decepticons-Hackathon/data-science#readme)
+* [Описание фронтенда](https://github.com/Decepticons-Hackathon/frontend#readme)
 * [Описание архитектуры](docs/architecture/common.md)
 * [Документация по API](docs/architecture/api-v1.md)
 * [Представления аналитики](docs/architecture/analytics.md)
@@ -25,6 +26,6 @@
 
 ## Требования
 
-* Python == 3.10 ([Разработка серверной части](docs/technical/backend-dev.md))
-* Django >= 4.2
-* React >= _____ ([Разработка фронтенда](docs/technical/frontend-dev.md))
+* Python == 3.10 ([Разработка модели сопоставления](https://github.com/Decepticons-Hackathon/data-science#readme))
+* Django >= 4.2  ([Разработка серверной части](docs/technical/backend-dev.md))
+* React >= _____ ([Разработка фронтенда](https://github.com/Decepticons-Hackathon/frontend#readme))
