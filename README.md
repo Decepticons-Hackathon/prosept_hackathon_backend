@@ -4,7 +4,7 @@
 
 ### Технологии
 
-[Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)
+<img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green" /> 
 
 **Задача проекта:** разработка решения, которое частично автоматизирует процесс сопоставления товаров заказчика с размещаемыми товарами на онлайн площадках дилеров.
 
