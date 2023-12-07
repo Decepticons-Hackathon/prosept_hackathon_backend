@@ -1,5 +1,5 @@
 from django.urls import include, path, re_path
-
+from django.conf import settings
 from api.management.schema import schema_view
 from api.views import v1
 
@@ -16,11 +16,14 @@ url_list = [
     path('ml-force-update/', v1.MlForceUpdate.as_view(), name='ml_force_update'),
     path('ml-force-update-product/', v1.MlForceUpdateProduct.as_view(), name='ml_force_product_update'),
     path('references/', v1.AppDicts.as_view(), name='references'),
-    # TODO: сделать зависимым от debug=True
-    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
 
 urlpatterns = [
     path('v1/', include(url_list),)
 ]
+
+if settings.DEBUG:
+    url_list += [
+        re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+        path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    ]
