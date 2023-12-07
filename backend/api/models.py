@@ -128,7 +128,7 @@ class DealerProductStausChange(models.Model):
         on_delete=models.CASCADE
     )
     status = models.CharField(
-        max_length=10,
+        max_length=12,
         choices=CORRECT_CONDITIONS,
         default=CORRECT_CONDITIONS[3][0],
         db_index=True
@@ -156,7 +156,7 @@ class DealerProductStausHistory(models.Model):
         auto_now_add=True
     )
     status_type = models.CharField(
-        max_length=6,
+        max_length=12,
         choices=STATUS_TYPE,
         default=STATUS_TYPE[2][0],
         db_index=True
