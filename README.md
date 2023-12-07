@@ -5,20 +5,18 @@
 **Задача проекта:** разработка решения, которое частично автоматизирует процесс сопоставления товаров заказчика с размещаемыми товарами на онлайн площадках дилеров.
 
 **Состав команды:**
-- Юлия Никифорова - PM (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@Niki_for_Ova)
-- Валентина Ковалëва - DS (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@BrianKowalski)
-- Артём Гришин - DS (лид) (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@Owu213)
-- Лидия Пономаренко - DS (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@L1d11aP)
-- Борис Коренбляс - Backend (лид) (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@bbobr2072)
-- Евгений Хомутов - Backend (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@Ev93n1)
-- Артём Тулупов - Frontend (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@mrFrontendDev)
-- Лия Высоцкая - Frontend (лид) (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@liya_vysockaya)
+- [Юлия Никифорова - PM](https://github.com/NikkiFo)
+- [Валентина Ковалëва - DS](https://github.com/BrianKowalski)
+- [Артём Гришин - DS (лид)](https://t.me/Owu213)
+- [Лидия Пономаренко - DS](https://github.com/L1d11a)
+- [Борис Коренбляс - Backend (лид)](https://github.com/bobr2072)
+- [Евгений Хомутов - Backend](https://github.com/Sambo312)
+- [Артём Тулупов - Frontend](https://github.com/artemtu)
+- [Лия Высоцкая - Frontend (лид)](https://github.com/LiyaVysotskaya)
 
 
 ## Подробности:
 
-* [Описание модели сопоставления](https://github.com/Decepticons-Hackathon/data-science#readme)
-* [Описание фронтенда](https://github.com/Decepticons-Hackathon/frontend#readme)
 * [Описание архитектуры](docs/architecture/common.md)
 * [Документация по API](docs/architecture/api-v1.md)
 * [Представления аналитики](docs/architecture/analytics.md)
