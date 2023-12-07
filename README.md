@@ -22,6 +22,7 @@
 * [Документация по API](docs/architecture/api-v1.md)
 * [Представления аналитики](docs/architecture/analytics.md)
 * [Разворачивание для эксплуатации](docs/technical/deploy.md)
+* [Что можно улучшить/что не успели сделать](docs/architecture/improvement.md)
 
 ## Требования
 
