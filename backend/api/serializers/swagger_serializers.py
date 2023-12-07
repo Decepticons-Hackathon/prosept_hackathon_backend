@@ -103,7 +103,22 @@ class SwaggerDealerProducts(serializers.Serializer):
         fields = ['product', 'dealer_product_info']
 
 
+class SwaggerDealerProductForMatch(serializers.Serializer):
+    dealer_product = SwaggerDealerPriceSerializer()
+    procreator_variants = SwaggerProcreatorVariants()
+
 # -------------------- Final --------------------
+
+
+class SwaggerProductMatch(serializers.Serializer):
+    dealer_products = SwaggerDealerProductForMatch()
+    offset = serializers.IntegerField()
+    limit = serializers.IntegerField()
+    dealer_products_count = serializers.IntegerField()
+
+    class Meta:
+        model = Dealer
+        fields = ['dealer_products', 'offset', 'limit', 'dealer_products_count']
 
 
 class SwaggerProductList(serializers.Serializer):

@@ -18,7 +18,7 @@ from api.serializers.swagger_serializers import (
     SwaggerDealerDetailSerializer, SwaggerDealerPriceSerializer,
     SwaggerDealerProductListSerializer, SwaggerDealerSerializer,
     SwaggerDealersStatSerializer, SwaggerMatchStatSerializer,
-    SwaggerProductList, SwaggerProductSerializer)
+    SwaggerProductList, SwaggerProductMatch)
 from api.utils import GetStat, JsonResponse, MlMatches, force_int
 
 logger = logging.getLogger(__name__)
@@ -41,7 +41,7 @@ class ProductList(APIView):
 class ProductListToMatches(APIView):
 
     @swagger_auto_schema(
-        responses={200: ProductListToMatchesResponseSerializer}
+        responses={200: SwaggerProductMatch}
     )
     def get(self, request):
         """
@@ -149,7 +149,6 @@ class ProductMatching(APIView):
                 pass
         return
 
-    @swagger_auto_schema(responses={200: SwaggerProductSerializer})
     def post(self, request):
         """
         Метод сопоставления товара образцу (действие разметки)
@@ -277,7 +276,7 @@ class ProductsStat(APIView):
 
 class MlForceUpdate(APIView):
 
-    def get(self, request):
+    def post(self, request):
         """
         Принудительное обновление рекомендаций
         """
