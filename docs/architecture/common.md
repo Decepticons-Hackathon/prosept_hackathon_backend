@@ -27,8 +27,8 @@
 Реализованы в качестве управляющих комманд Django приложения
 
 * [Парсер данных из CSV файлов](../technical/utils/csv-parser.md)
-* [Генератор первичной истории и статусов продуктов диллера](../technical/utils/status-generator.md)
-* [Генератор вариантов матчинга продуктов](../technical/utils/get-recommendations.md)
+* [Генератор первичной истории и статусов товаров диллера](../technical/utils/status-generator.md)
+* [Генератор вариантов матчинга товаров](../technical/utils/get-recommendations.md)
 
 ## Аутентификация, авторизация
 

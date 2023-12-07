@@ -18,6 +18,7 @@
 ## Подробности:
 
 * [Описание архитектуры](docs/architecture/common.md)
+* [Описание моделей](docs/architecture/models.md)
 * [Документация по API](docs/architecture/api-v1.md)
 * [Представления аналитики](docs/architecture/analytics.md)
 * [Разворачивание для эксплуатации](docs/technical/deploy.md)
