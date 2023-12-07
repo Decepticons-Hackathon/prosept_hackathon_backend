@@ -4,23 +4,20 @@ from rest_framework import status
 from api.tests.utils import ApiTestsClass
 
 
-class DealerListTestClass(ApiTestsClass):
-    url = '/api/v1/dealer-list/'
+class DealerDetailTestClass(ApiTestsClass):
+    url = '/api/v1/references/'
 
-    @tag('api', 'dealer-list')
+    @tag('api', 'references')
     def test_dealer_list(self):
 
         data = self.get_api()
 
-        self.assertIsInstance(data.get('dealers'), list)
-        self.assertEqual(data.get('dealers_count'), 3)
+        self.assertIsInstance(data, dict)
+        self.assertIsInstance(data.get('conditions'), list)
+        self.assertIsInstance(data.get('status_types'), list)
 
-        dealers = data.get('dealers')
-        for dealer in dealers:
-            self.assertIsInstance(dealer, dict)
-
-        self.assertEqual(dealers[2].get('id'), 3)
-        self.assertEqual(dealers[2].get('name'), 'Dealer 3')
+        self.assertEqual(data.get('conditions')[0], {'approve': 'Подтвердить'})
+        self.assertEqual(data.get('status_types')[1], {'manual': 'Поиск в ручную'})
 
     def get_api(self):
 

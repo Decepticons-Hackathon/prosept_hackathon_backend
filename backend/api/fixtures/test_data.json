@@ -1,0 +1,479 @@
+[
+{
+  "model": "api.dealer",
+  "pk": 1,
+  "fields": {
+    "name": "Dealer 1"
+  }
+},
+{
+  "model": "api.dealer",
+  "pk": 2,
+  "fields": {
+    "name": "Dealer 2"
+  }
+},
+{
+  "model": "api.dealer",
+  "pk": 3,
+  "fields": {
+    "name": "Dealer 3"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 1,
+  "fields": {
+    "product_id": 1,
+    "article": "008-1",
+    "ean_13": "4680008140234.0",
+    "name": "Product 1",
+    "cost": 360.0,
+    "min_rec_price": null,
+    "rec_price": 858.0,
+    "category_id": 20.0,
+    "ozon_name": "Product 1",
+    "name_1c": "Product 1",
+    "wb_name": "Product 1",
+    "ozon_article": "189522705.0",
+    "wb_article": "150033482.0",
+    "ym_article": "008-1"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 2,
+  "fields": {
+    "product_id": 2,
+    "article": "242-12",
+    "ean_13": "",
+    "name": "Product 2",
+    "cost": 460.16,
+    "min_rec_price": null,
+    "rec_price": 1075.0,
+    "category_id": 0.0,
+    "ozon_name": "",
+    "name_1c": "Product 2",
+    "wb_name": "",
+    "ozon_article": "",
+    "wb_article": "",
+    "ym_article": ""
+  }
+},
+{
+  "model": "api.product",
+  "pk": 3,
+  "fields": {
+    "product_id": 3,
+    "article": "0024-06 с",
+    "ean_13": "4680008145208.0",
+    "name": "Product 3",
+    "cost": 307.0,
+    "min_rec_price": null,
+    "rec_price": 644.0,
+    "category_id": 25.0,
+    "ozon_name": "Product 3",
+    "name_1c": "Product 3",
+    "wb_name": "Product 3",
+    "ozon_article": "189522735.0",
+    "wb_article": "150126217.0",
+    "ym_article": "0024-06-с"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 4,
+  "fields": {
+    "product_id": 4,
+    "article": "305-2",
+    "ean_13": "4610093420164.0",
+    "name": "Product 4",
+    "cost": 157.73,
+    "min_rec_price": null,
+    "rec_price": 342.0,
+    "category_id": 29.0,
+    "ozon_name": "Product 4",
+    "name_1c": "Product 4",
+    "wb_name": "Product 4",
+    "ozon_article": "339377922.0",
+    "wb_article": "150032962.0",
+    "ym_article": "305-2"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 5,
+  "fields": {
+    "product_id": 5,
+    "article": "0024-7 б",
+    "ean_13": "",
+    "name": "Product 5",
+    "cost": 0.0,
+    "min_rec_price": null,
+    "rec_price": 0.0,
+    "category_id": 0.0,
+    "ozon_name": "Product 5",
+    "name_1c": "Product 5",
+    "wb_name": "Product 5",
+    "ozon_article": "189522867.0",
+    "wb_article": "150126216.0",
+    "ym_article": "0024-7-б"
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 1,
+  "fields": {
+    "product_key": "546227",
+    "price": 233.0,
+    "product_url": "https://akson.ru//p/sredstvo_universalnoe_prosept_universal_spray_500ml/",
+    "product_name": "Product 1",
+    "date": "2023-07-11",
+    "dealer": 1
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 2,
+  "fields": {
+    "product_key": "546408",
+    "price": 175.0,
+    "product_url": "https://akson.ru//p/kontsentrat_prosept_multipower_dlya_mytya_polov_tsitrus_1l/",
+    "product_name": "Product 2",
+    "date": "2023-07-11",
+    "dealer": 2
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 3,
+  "fields": {
+    "product_key": "546234",
+    "price": 285.0,
+    "product_url": "https://akson.ru//p/sredstvo_dlya_chistki_lyustr_prosept_universal_anti_dust_500ml/",
+    "product_name": "Product 3",
+    "date": "2023-07-11",
+    "dealer": 3
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 4,
+  "fields": {
+    "product_key": "651258",
+    "price": 362.0,
+    "product_url": "https://akson.ru//p/udalitel_rzhavchiny_prosept_rust_remover_0_5l_023_05/",
+    "product_name": "Product 4",
+    "date": "2023-07-11",
+    "dealer": 1
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 5,
+  "fields": {
+    "product_key": "546355",
+    "price": 205.0,
+    "product_url": "https://akson.ru//p/sredstvo_moyushchee_dlya_bani_i_sauny_prosept_multipower_wood_1l/",
+    "product_name": "Product 5",
+    "date": "2023-07-11",
+    "dealer": 2
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 6,
+  "fields": {
+    "product_key": "831859",
+    "price": 370.0,
+    "product_url": "https://akson.ru//p/propitka_prosept_aquaisol_dlya_kamnya_kontsentrat_1_2_1l/",
+    "product_name": "Product test 1",
+    "date": "2023-07-11",
+    "dealer": 3
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 7,
+  "fields": {
+    "product_key": "546406",
+    "price": 235.0,
+    "product_url": "https://akson.ru//p/sredstvo_dlya_mytya_plitki_i_keramogranita_prosept_multipower_kerama_1l/",
+    "product_name": "Product test 2",
+    "date": "2023-07-11",
+    "dealer": 3
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 8,
+  "fields": {
+    "product_key": "831858",
+    "price": 1648.0,
+    "product_url": "https://akson.ru//p/propitka_prosept_aquaisol_dlya_kamnya_kontsentrat_1_2_5l/",
+    "product_name": "Product test 3",
+    "date": "2023-07-11",
+    "dealer": 3
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 9,
+  "fields": {
+    "product_key": "857015",
+    "price": 371.0,
+    "product_url": "https://akson.ru//p/shpatlevka_zamazka_proseptn_plastix_dlya_zadelki_glubokih_vyboin_i_treschin_1_4kg/",
+    "product_name": "Product test 4",
+    "date": "2023-07-11",
+    "dealer": 3
+  }
+},
+{
+  "model": "api.dealerprice",
+  "pk": 10,
+  "fields": {
+    "product_key": "651265",
+    "price": 235.0,
+    "product_url": "https://akson.ru//p/sol_dlya_posudomoechnykh_mashin_prosept_splash_1_5kg_280_15/",
+    "product_name": "Product test 5",
+    "date": "2023-07-11",
+    "dealer": 3
+  }
+},
+{
+  "model": "api.dealerproduct",
+  "pk": 1,
+  "fields": {
+    "product_id": 1,
+    "dealer_id": 1,
+    "key": [
+      1
+    ]
+  }
+},
+{
+  "model": "api.dealerproduct",
+  "pk": 2,
+  "fields": {
+    "product_id": 2,
+    "dealer_id": 2,
+    "key": [
+      2
+    ]
+  }
+},
+{
+  "model": "api.dealerproduct",
+  "pk": 3,
+  "fields": {
+    "product_id": 3,
+    "dealer_id": 3,
+    "key": [
+      3
+    ]
+  }
+},
+{
+  "model": "api.dealerproductvariants",
+  "pk": 1,
+  "fields": {
+    "dealer_product_id": 1,
+    "product_id": 1,
+    "dealer_id": 1,
+    "degree_of_agreement": 1
+  }
+},
+{
+  "model": "api.dealerproductvariants",
+  "pk": 2,
+  "fields": {
+    "dealer_product_id": 1,
+    "product_id": 2,
+    "dealer_id": 1,
+    "degree_of_agreement": 2
+  }
+},
+{
+  "model": "api.dealerproductstauschange",
+  "pk": 1,
+  "fields": {
+    "dealer_product_id": 1,
+    "product_id": 1,
+    "dealer_id": 1,
+    "status": "approve",
+    "status_datetime": "2023-12-07T19:48:41.602Z"
+  }
+},
+{
+  "model": "api.dealerproductstauschange",
+  "pk": 2,
+  "fields": {
+    "dealer_product_id": 2,
+    "product_id": 2,
+    "dealer_id": 2,
+    "status": "approve",
+    "status_datetime": "2023-12-07T19:48:41.614Z"
+  }
+},
+{
+  "model": "api.dealerproductstauschange",
+  "pk": 3,
+  "fields": {
+    "dealer_product_id": 3,
+    "product_id": 3,
+    "dealer_id": 3,
+    "status": "approve",
+    "status_datetime": "2023-12-07T19:48:41.622Z"
+  }
+},
+{
+  "model": "api.dealerproductstauschange",
+  "pk": 4,
+  "fields": {
+    "dealer_product_id": 4,
+    "dealer_id": 2,
+    "status": "none",
+    "status_datetime": "2023-12-07T19:48:41.614Z"
+  }
+},
+{
+  "model": "api.dealerproductstauschange",
+  "pk": 5,
+  "fields": {
+    "dealer_product_id": 5,
+    "dealer_id": 3,
+    "status": "none",
+    "status_datetime": "2023-12-07T19:48:41.622Z"
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 1,
+  "fields": {
+    "dealer_product_id": 1,
+    "status_datetime": "2023-12-06T19:48:41.605Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 2,
+  "fields": {
+    "dealer_product_id": 1,
+    "status_datetime": "2023-12-07T19:48:41.616Z",
+    "status_type": "ds",
+    "product_variant": 1
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 3,
+  "fields": {
+    "dealer_product_id": 2,
+    "status_datetime": "2023-12-06T19:48:41.624Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 4,
+  "fields": {
+    "dealer_product_id": 2,
+    "status_datetime": "2023-12-07T19:48:41.633Z",
+    "status_type": "manual",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 5,
+  "fields": {
+    "dealer_product_id": 3,
+    "status_datetime": "2023-12-06T19:48:41.640Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 6,
+  "fields": {
+    "dealer_product_id": 3,
+    "status_datetime": "2023-12-06T19:48:41.648Z",
+    "status_type": "manual",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 7,
+  "fields": {
+    "dealer_product_id": 4,
+    "status_datetime": "2023-12-06T19:48:41.656Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 8,
+  "fields": {
+    "dealer_product_id": 5,
+    "status_datetime": "2023-12-06T19:48:41.664Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 9,
+  "fields": {
+    "dealer_product_id": 6,
+    "status_datetime": "2023-12-06T19:48:41.672Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 10,
+  "fields": {
+    "dealer_product_id": 7,
+    "status_datetime": "2023-12-06T19:48:41.683Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 11,
+  "fields": {
+    "dealer_product_id": 8,
+    "status_datetime": "2023-12-06T19:48:41.691Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 12,
+  "fields": {
+    "dealer_product_id": 9,
+    "status_datetime": "2023-12-06T19:48:41.699Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+},
+{
+  "model": "api.dealerproductstaushistory",
+  "pk": 13,
+  "fields": {
+    "dealer_product_id": 10,
+    "status_datetime": "2023-12-06T19:48:41.706Z",
+    "status_type": "none",
+    "product_variant": null
+  }
+}
+]
