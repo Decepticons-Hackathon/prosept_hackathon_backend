@@ -31,7 +31,7 @@ class DealerListTestClass(ApiTestsClass):
         self.assertIsInstance(product.get('dealer_product_info'), dict)
         self.assertEqual(product.get('dealer_product_info').get('price'), 175.0)
         self.assertEqual(product.get('dealer_product_info').get('product_name'), 'Product 2')
-        
+
         self.assertIsInstance(product.get('dealer_product_info').get('dealer_product_history'), list)
         self.assertIsInstance(product.get('dealer_product_info').get('dealer_product_status'), dict)
         self.assertEqual(product.get('dealer_product_info').get('dealer_product_status').get('status'), 'approve')

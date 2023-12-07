@@ -1,5 +1,6 @@
-from django.urls import include, path, re_path
 from django.conf import settings
+from django.urls import include, path, re_path
+
 from api.management.schema import schema_view
 from api.views import v1
 
