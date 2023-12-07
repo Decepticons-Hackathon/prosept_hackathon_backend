@@ -1,0 +1,17 @@
+@import '../../constants/constants.scss';
+
+.table-filter-checkbox-group {
+  width: 250px;
+  margin-bottom: 8px;
+  display: block;
+  max-height: 300px;
+  overflow-x: hidden;
+}
+
+.table-filter-checkbox-group .ant-checkbox-group-item {
+  width: 100%;
+}
+
+.ant-table-cell-row-hover {
+  background: lightblue!important;
+}

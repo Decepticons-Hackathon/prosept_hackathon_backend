@@ -1,0 +1,108 @@
+import { ProductModel } from "../api/models/ProductModel";
+import TableHelper from "../components/TableHelper/TableHelper";
+
+export const columns = (data: ProductModel[]) => [
+  {
+    title: "ID продукта",
+    dataIndex: "product_id",
+    key: "product_id",
+    ...TableHelper.getNumberColumnSearchProps("product_id"),
+    sorter: (a: ProductModel, b: ProductModel) => a.product_id - b.product_id,
+  },
+  {
+    title: "Артикул",
+    dataIndex: "article",
+    key: "article",
+    ...TableHelper.getStringListColumnSearchProps("article", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.article.length - b.article.length,
+  },
+  {
+    title: "Код товара",
+    dataIndex: "ean_13",
+    key: "ean_13",
+    ...TableHelper.getStringListColumnSearchProps("ean_13", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.ean_13.length - b.ean_13.length,
+  },
+  {
+    title: "Наименование товара",
+    dataIndex: "name",
+    key: "name",
+    width: 300,
+    ...TableHelper.getStringListColumnSearchProps("name", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.name.length - b.name.length,
+  },
+  {
+    title: "Стоимость",
+    dataIndex: "cost",
+    key: "cost",
+    ...TableHelper.getNumberColumnSearchProps("cost"),
+    sorter: (a: ProductModel, b: ProductModel) => a.cost - b.cost,
+  },
+  {
+    title: "МРРЦ",
+    dataIndex: "min_rec_price",
+    key: "min_rec_price",
+    ...TableHelper.getNumberColumnSearchProps("min_rec_price"),
+    sorter: (a: ProductModel, b: ProductModel) => (a.min_rec_price || 0) - (b.min_rec_price || 0),
+
+  },
+  {
+    title: "РРЦ",
+    dataIndex: "rec_price",
+    key: "rec_price",
+    ...TableHelper.getNumberColumnSearchProps("rec_price"),
+    sorter: (a: ProductModel, b: ProductModel) => a.rec_price - b.rec_price,
+  },
+  {
+    title: "Категория товара",
+    dataIndex: "category_id",
+    key: "category_id",
+    ...TableHelper.getNumberColumnSearchProps("category_id"),
+    sorter: (a: ProductModel, b: ProductModel) => a.category_id - b.category_id,
+  },
+  {
+    title: "OZON",
+    dataIndex: "ozon_name",
+    key: "ozon_name",
+    width: 300,
+    ...TableHelper.getStringListColumnSearchProps("ozon_name", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.ozon_name.length - b.ozon_name.length,
+  },
+  {
+    title: "1С",
+    dataIndex: "name_1c",
+    key: "name_1c",
+    width: 300,
+    ...TableHelper.getStringListColumnSearchProps("name_1c", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.name_1c.length - b.name_1c.length,
+  },
+  {
+    title: "Wildberries",
+    dataIndex: "wb_name",
+    key: "wb_name",
+    width: 300,
+    ...TableHelper.getStringListColumnSearchProps("wb_name", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.wb_name.length - b.wb_name.length,
+  },
+  {
+    title: "OZON описание",
+    dataIndex: "ozon_article",
+    key: "ozon_article",
+    ...TableHelper.getStringListColumnSearchProps("ozon_article", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.ozon_article.length - b.ozon_article.length,
+  },
+  {
+    title: "Wildberries артикул",
+    dataIndex: "wb_article",
+    key: "wb_article",
+    ...TableHelper.getStringListColumnSearchProps("wb_article", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.wb_article.length - b.wb_article.length,
+  },
+  {
+    title: "ЯМ артикул",
+    dataIndex: "ym_article",
+    key: "ym_article",
+    ...TableHelper.getStringListColumnSearchProps("ym_article", data),
+    sorter: (a: ProductModel, b: ProductModel) => a.ym_article.length - b.ym_article.length,
+  },
+].map(x => ({...x, width: (x as any).width || 120}));
