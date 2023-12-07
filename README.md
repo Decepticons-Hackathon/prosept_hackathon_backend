@@ -27,4 +27,4 @@
 
 * Python == 3.10 ([Разработка модели сопоставления](https://github.com/Decepticons-Hackathon/data-science#readme))
 * Django >= 4.2  ([Разработка серверной части](docs/technical/backend-dev.md))
-* React >= _____ ([Разработка фронтенда](https://github.com/Decepticons-Hackathon/frontend#readme))
+* React >= 18.2 ([Разработка фронтенда](https://github.com/Decepticons-Hackathon/frontend#readme))
