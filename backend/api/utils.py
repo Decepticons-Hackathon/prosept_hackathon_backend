@@ -22,7 +22,6 @@ from ml_models.decepticon_ml_model.recommendation_model import \
 from ml_models.decepticon_ml_model.recommendation_model_version_2 import \
     RecommendationModel
 
-
 logger = logging.getLogger(__name__)
 
 
