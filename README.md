@@ -10,15 +10,13 @@
 - Артём Гришин - DS (лид) (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@Owu213)
 - Лидия Пономаренко - DS (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@L1d11aP)
 - Борис Коренбляс - Backend (лид) (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@bbobr2072)
-- Евгений Хомутов - Backend (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@Ev93n1)
+- [Евгений Хомутов - Backend](https://github.com/Sambo312)
 - Артём Тулупов - Frontend (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@mrFrontendDev)
 - Лия Высоцкая - Frontend (лид) (<img src="https://github.com/mike2023-ml/Portfolio/assets/116313032/d3f08c03-7dec-490e-ad39-75152295c4d5" title="Telegram" alt="Telegram" width="20" height="20"/>@liya_vysockaya)
 
 
 ## Подробности:
 
-* [Описание модели сопоставления](https://github.com/Decepticons-Hackathon/data-science#readme)
-* [Описание фронтенда](https://github.com/Decepticons-Hackathon/frontend#readme)
 * [Описание архитектуры](docs/architecture/common.md)
 * [Документация по API](docs/architecture/api-v1.md)
 * [Представления аналитики](docs/architecture/analytics.md)
