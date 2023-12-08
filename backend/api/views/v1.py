@@ -6,10 +6,10 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.views import APIView
 
-from api.models import (CORRECT_CONDITIONS, STATUS_TYPE, Dealer, DealerPrice,
-                        DealerProduct, DealerProductStausChange,
-                        DealerProductStausHistory, DealerProductVariants,
-                        Product)
+from api.models import (
+    CORRECT_CONDITIONS, STATUS_TYPE, Dealer, DealerPrice,
+    DealerProduct, DealerProductStausChange, DealerProductStausHistory,
+    DealerProductVariants, Product)
 from api.serializers.response_serializers import (
     DealerDetailResponseSerializer, DealerListResponseSerializer,
     DealerProductListResponseSerializer, DealerProductStatResponseSerializer,
@@ -21,9 +21,8 @@ from api.serializers.swagger_serializers import (
     SwaggerProductList, SwaggerProductMatch)
 from api.utils import GetStat, JsonResponse, MlMatches, force_int
 
-logger = logging.getLogger(__name__)
 
-# TODO: Разобраться почему @swagger_auto_schema не работает
+logger = logging.getLogger(__name__)
 
 
 class ProductList(APIView):
